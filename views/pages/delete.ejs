@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+
+    <title>Delete</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div class="container contentbox">
+      <h3 class="bolder form-title padding-title">Delete from Cashbook</h3>
+
+      <div
+        class="btn-group btn-group-lg flex-wrap"
+        role="group"
+        aria-label="Basic example"
+      >
+        <!--<button type="button" id="btn-insert" class="btn btn-info">GRAS</button>-->
+        <button type="button" id="btn-remittance" class="btn btn-info">
+          Remittance
+        </button>
+        <button type="button" id="btn-other_receipts" class="btn btn-info">Other Receipts</button>
+        <button type="button" id="btn-gras" class="btn btn-info">GRAS</button>
+        <button type="button" id="btn-acknowledgement" class="btn btn-info">
+          Expenditures
+        </button>
+      </div>
+      <form
+        name="delete-form"
+        id="delete-form"
+        class="justify-content-center"
+        method="POST"
+      >
+        <div id="Remittance">
+          <h4 class="form-title padding-title bold">
+            Delete from Remittance Register
+          </h4>
+
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="letter">Letter Number.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="letter"
+              placeholder="e.g. 1234"
+              required
+            />
+          </div>
+   
+        </div>
+        <div id="other_receipts">
+          <h4 class="form-title padding-title bold">
+            Delete from Other Receipts
+          </h4>
+
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="instrument">Instrument Number.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="instrument"
+              placeholder="e.g. 1234"
+              required
+            />
+          </div>
+   
+        </div>
+        <div id="GRAS">
+          <h4 class="form-title padding-title bold">Delete from GRAS</h4>
+
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="gras_receipt">Gras Receipt Number:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="gras_receipt"
+              placeholder="e.g. MH12345678987M"
+              required
+            />
+          </div>
+        </div>
+        <div id="Acknowledgement">
+          <h4 class="form-title padding-title bold">
+            Delete from Expenditures
+          </h4>
+
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="cheque_number">Cheque No.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cheque_number"
+              placeholder="e.g. MH12345678987M"
+              required
+            />
+          </div>
+        </div>
+        <div id="month-year">
+          <!-- <div class="form-group col-md-8 col-lg-8">
+            <label for="month">Month:</label>
+            <select class="form-control" id="month" required>
+              <option>January</option>
+              <option>February</option>
+              <option>March</option>
+              <option>April</option>
+              <option>May</option>
+              <option>June</option>
+              <option>July</option>
+              <option>August</option>
+              <option>September</option>
+              <option>October</option>
+              <option>November</option>
+              <option>December</option>
+            </select>
+          </div>
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="financial_year">Financial Year:</label>
+            <select class="form-control" id="financial_year" required> </select>
+          </div> -->
+          <div class="form-group col-md-8 col-lg-8">
+            <button class="btn btn-success" id="insert_submit">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+  <%- include ('../partials/footer') -%>
+</html>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#Remittance").hide();
+    $("#GRAS").hide();
+    $("#other_receipts").hide();
+    $("#Acknowledgement").hide();
+    $("#month-year").hide();
+
+    $("#btn-remittance").click(function () {
+      $("#Remittance").show();
+      $("#month-year").show();
+      $("#GRAS").hide();
+      $("#Acknowledgement").hide();
+      // $("#insert_submit").click(function(){
+      //$('#acknowledgement_insert').show();
+      //$('#insert_details').hide();
+      //});
+      //   let name = $("#letter").val("");
+      //   let name = $("#gras_receipt").val("");
+      //   let name = $("#cheque_number").val("");
+      document.getElementById("delete-form").reset();
+    });
+    $("#btn-other_receipts").click(function () {
+      $("#other_receipts").show();
+      $("#Remittance").hide();
+      $("#month-year").show();
+      $("#GRAS").hide();
+      $("#Acknowledgement").hide();
+   
+      document.getElementById("delete-form").reset();
+    });
+    $("#btn-gras").click(function () {
+      $("#Remittance").hide();
+      $("#GRAS").show();
+      $("#month-year").show();
+      $("#Acknowledgement").hide();
+      //   let name = $("#letter").val("");
+      //   let name = $("#gras_receipt").val("");
+      //   let name = $("#cheque_number").val("");
+      document.getElementById("delete-form").reset();
+    });
+
+    $("#btn-acknowledgement").click(function () {
+      $("#Acknowledgement").show();
+      $("#month-year").show();
+      $("#Remittance").hide();
+      $("#GRAS").hide();
+      //   let name = $("#letter").val("");
+      //   let name = $("#gras_receipt").val("");
+      //   let name = $("#cheque_number").val("");
+      document.getElementById("delete-form").reset();
+    });
+
+    $("#insert_submit").click((e) => {
+      e.preventDefault();
+      $.getJSON("https://jsonip.com?callback=?", function (data1) {
+        let letter = $("#letter").val();
+        let gras_receipt = $("#gras_receipt").val();
+        let cheque_number = $("#cheque_number").val();
+        let instrument=$("#instrument").val();
+        let tablename;
+        let tablename0;
+        let check = true;
+        let data;
+        let colname;
+        let date = new Date();
+        let url = "/delete_data";
+        if (letter != "") {
+          tablename = "approved_remittance";
+          tablename0 = "remittance";
+          data = letter;
+          colname = "letter_no";
+        } else if (gras_receipt != "") {
+          tablename = "approved_gras";
+          tablename0 = "gras";
+          data = gras_receipt;
+          colname = "gras_receipt_no";
+        }
+        else if (instrument != "") {
+          tablename = "approved_other_receipts";
+          tablename0 = "approved_other_receipts";
+          data = instrument;
+          colname = "instrument";
+        } 
+        else if (cheque_number != "") {
+          tablename = "approved_acknowledgement";
+          tablename0 = "acknowledgement";
+          data = cheque_number;
+          colname = "cheque_no";
+        } else {
+          check = false;
+        }
+        if (check) {
+          console.log(data, " ", tablename0);
+          $.post(url, {
+            date1: date,
+            ip: data1.ip,
+            data: data,
+            tablename: tablename,
+            tablename0: tablename0,
+            colname: colname,
+          }).done(function (data) {
+            document.getElementById("delete-form").reset();
+            if (data == "Successful") {
+              swal({
+                title: "Successfully",
+                text: "Data Deleted!",
+                icon: "success",
+              });
+              // let name = $("#letter").val("");
+              // let name = $("#gras_receipt").val("");
+              // let name = $("#cheque_number").val("");
+            } else {
+              swal({
+                title: "Error!",
+                text: data,
+                icon: "error",
+              });
+              e.preventDefault();
+              // let name = $("#letter").val("");
+              // let name = $("#gras_receipt").val("");
+              // let name = $("#cheque_number").val("");
+            }
+          });
+        } else {
+          swal({
+            title: "Fields Cannot be Empty",
+            text: "",
+            icon: "error",
+          });
+          e.preventDefault();
+          // let name = $("#letter").val("");
+          // let name = $("#gras_receipt").val("");
+          // let name = $("#cheque_number").val("");
+        }
+      });
+    });
+  });
+</script>

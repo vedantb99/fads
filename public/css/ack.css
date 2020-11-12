@@ -1,0 +1,99 @@
+.disable-elements {
+    pointer-events: none;
+  }
+  #acknowledgement_view{
+    margin-top: 5%;
+}
+
+#table_val_month{
+	text-align: center;
+}
+#ackTable{
+	text-align: center;
+	width: 95%;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+#ackTable th, #ackTable td{
+	border: 1px solid black;
+	padding: 7px;
+}
+.alert-info{
+	width: 750px;
+	}
+.btn-success{
+		
+		width: 170px;
+	}
+.form-title{
+		color: black;
+		/* text-align:center; */
+	}
+.padding-title{
+		padding-top: 10px;
+		padding-bottom: 10px;
+		}
+@media screen and (max-width: 900px) {
+	
+	#ackTable{
+		
+		width: 98%;
+		margin: 0 auto;
+	}
+	#ackTable th, #ackTable td{
+		padding: 2px;
+	}
+	.alert-info{
+		width: 550px;
+		}
+	.btn-success{
+			
+			width: 140px;
+		}
+}
+
+
+@media (max-width: 576px) {
+
+	#ackTable{
+		width: 98%;
+		font-size: 0.75em;
+		margin: 0 auto;
+	}
+	#ackTable th, #ackTable td{
+		padding: 5px 3px;
+	}
+	.alert-info{
+		width: 350px;
+		}
+	.btn-success{
+			
+			width: 100px;
+		}
+
+}
+@media (max-width: 420px) {
+
+	#ackTable{
+		width:50%;
+		font-size: 0.60em;
+		margin: 0 auto;
+	}
+	#ackTable th, #ackTable td{
+		padding: 0.2px;
+	}
+	.alert-info{
+		width: 200px;
+		}
+	.btn-success{
+			
+			width: 70px;
+		}
+}
+
+
+
+
+
+
+

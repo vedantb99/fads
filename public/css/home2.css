@@ -1,0 +1,69 @@
+.card-deck{
+    
+        position:absolute;
+        top:50%; 
+        left: 0;
+        transform: translateY(-50%); 
+      
+}
+.container{
+    height: 100%;
+}
+
+
+.card{
+    /* background-color: rgba(9, 48, 100, 0.863);  */
+    background-color: #092f40;
+    opacity:.9;
+    width:18rem;
+    height:15rem;
+    border-radius: 18px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    text-align: center;
+    transition: 1s ease;
+    cursor:pointer;
+  }
+  .card-text{
+    margin:20px;
+  }
+  
+  .card-text .count{
+    
+    color:rgb(255,7,110);
+    font-size: 18px;
+  }
+  
+  .card-text p{
+    color: white;
+    font-size:18px;
+    text-align:center;
+    font-weight: 800;
+    /* background-color:rgb(255,7,110); ; */
+  }
+  .card:hover{
+    transform: scale(1.15);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+    background-color: #092f40;
+  }
+
+  
+.card{
+  /* background-color: rgba(9, 48, 100, 0.863);  */
+  background-color: #092f40;
+  opacity:.9;
+  width:18rem;
+  height:15rem;
+  border-radius: 18px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+  text-align: center;
+  transition: 1s ease;
+  cursor:pointer;
+}
+.card-text{
+  margin:20px;
+  color:white;
+}
+.card-title{
+  color:white;
+  font-weight: 700;
+}

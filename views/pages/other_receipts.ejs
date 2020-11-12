@@ -1,0 +1,625 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="/CSS/other_receipts.css" rel="stylesheet"/>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+  />
+
+    <%- include ('../partials/links') -%>
+    <title>Other Receipts</title>
+</head>
+
+<body>
+    <%- include ('../partials/header') -%>
+<div class="container contentbox "> 
+        <h2 class="bolder padding-title form-title" >Other Receipts</h2>
+    <div class="btn-group btn-group-lg flex-wrap" role="group" aria-label="Basic example">
+        <button type="button" id="btn-insert" class="btn btn-info">Insert</button>
+        <button type="button" id="btn-view" class="btn btn-info">View</button>
+        <button type="button" id="btn-update" class="btn btn-info">Update</button>
+    </div>
+    <div id="other_receipts_insert">
+        <form name="other_receipts-form" id="other_receipts-form" class="justify-content-center " method="POST">
+            <h4 class=" bold padding-title form-title">Insert Other Receipts</h4>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="particulars">Particulars: </label>
+                <input type="text" class="form-control" id="particular" placeholder="e.g. 1234" required>
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="instrument">Instrument Number: </label>
+                <input type="text" class="form-control" id="instrument" placeholder="e.g. 1234" required>
+            </div>
+            
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="date">Date:</label>
+                <input type="date" id="date" class="form-control" required>
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="budget_code">Budget Code:</label>
+                <select class="form-control" id="budget_code" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>                 
+            </div>
+            <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="scheme">Scheme:</label>
+                <select class="form-control" id="scheme" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>  
+            </div> -->
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="pay_method">Payment Method:</label>
+                <div id="pay_method">
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="Payment" id="cash" value="cash"required checked>Cash
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="Payment" id="Cheque" value="cheque"required>Cheque
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="amount">Amount(Rs):</label>
+                <input type="text" class="form-control" id="amount" placeholder="506044" required>
+            </div>
+            <div class="form-group" style="margin-top: 2%;">
+                <button type="submit" id="submit"class="btn btn-success btn-lg " style="margin-left: 2%;">Register</button>
+            </div>
+        </form>
+    </div>
+    <div id="other_receipts_view">
+        <form name="other_receipts-form" id="other_receipts-form" class="justify-content-center " method="POST">
+               <h4 class="bold padding-title form-title">View Other Receipts</h4>
+                                <br>
+            <div class="alert alert-info font-weight-bold" role="alert">Please Insert the search parameters.</div>
+                                <br>
+                                <!-- <div class="form-group col-md-8 col-lg-8 dis">
+                                    <label for="select_f">Select Following:</label>
+                                    <div id="select_f">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                              <input type="radio" class="form-check-input" name="select_t" id="day_radio" value="day"required>Daily
+                                            </label>
+                                          </div>
+                                          <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                              <input type="radio" class="form-check-input" name="select_t" id="month_radio" value="month" required checked>Monthly
+                                            </label>
+                                          </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="form-group col-md-8 col-lg-8 sd dis">
+                                    <label for="date_view">Date:</label>
+                                    <input type="date" id="date_view" class="form-control" required>
+                                </div> -->
+                                <div class="form-group col-md-8 col-lg-8 sm dis">
+                                    <label for="month_view">Month:</label>
+                                    <select class="form-control" id="month_view" required>
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8 col-lg-8 sm dis">
+                                    <label for="financial_year_view">Financial Year:</label>
+                                    <select class="form-control" id="financial_year_view" required>
+                                    </select>
+                                </div>
+                                <button class="btn btn-success dis" id="other_view" style="margin-top: 2%;">View</button>
+                                <button type="button"class="btn btn-success refresh"  id="refresh" style="margin-top: 2%;">Refresh</button>
+                                <small id="refresh" class="form-text text-muted refresh" style="text-align: left;">Above Parameters are disabled now</small>
+                            </form>
+
+                        <div id="view_success">
+                                <table id="otherTable" class="table  table-striped table-bordered" cellspacing="0">
+                                   <thead>
+                                    <tr>
+                                        <th>Particular</th>
+                                        <th>Instrument No.</th>
+                                        <th>Date</th>
+                                        <th>Month</th>
+                                        <th>Financial Year</th>
+                                        <th>Budget Code</th>
+                                        <th>Payment Method</th>
+                                        <th>Amount</th>   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>rice from thane</td>
+                                    <td>3232</td>
+                                    <td>11/09/2020</td>
+                                    <td>October</td>
+                                    <td>2019-2020</td>
+                                    <td>44080077</td>
+                                    <td>Cheque</td>
+                                    <td>2000</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <button class="btn btn-primary" id="print" style="margin-top: 2%;">print</button>
+                
+                        </div>
+
+            </div>
+    <div  id="other_receipts_update">
+        <div id="other_receipts-check">
+        <form name="other_receipts-update-form" id="other_receipts-update-form" class="justify-content-center " method="POST">
+            <h4 class="bold padding-title form-title">Update Other Receipts</h4>
+            <br>
+            <div class="alert alert-info font-weight-bold " role="alert">Please Insert the search parameters.</div>
+            <br>
+            <div class="form-group col-md-8 col-lg-8 dis_update">
+                <label for="letter">Instrument Number.:</label>
+                <input type="text" class="form-control " id="instrument_check" placeholder="e.g. 1234" required>
+            </div>
+            <div class="form-group" style="margin-top: 2%;">
+                <button type="submit" id="other_receipts_check" class="btn btn-success btn-lg dis_update" style="margin-left: 2%;">Check</button>        
+                <button type="button" id="dis_update" class="btn btn-primary btn-lg " style="margin-left: 2%;">Refresh</button> 
+            </div>
+        </form>
+        </div>
+        <div id="update_success">
+            <small class="form-text text-muted" style="text-align: center;">Above Parameters are disabled now</small>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="particular_update">Particular:</label>
+                <input type="text" class="form-control" id="particular_update" placeholder="e.g. 1234" required>
+            </div>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="instrument_update">Instrument Number:</label>
+                <input type="text" class="form-control" id="instrument_update" placeholder="e.g. 15478" required>
+            </div>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="date_update">Date:</label>
+                <input type="date" id="date_update" class="form-control" disabled required>
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="budget_code_update">Budget Code:</label>
+                <select class="form-control" id="budget_code_update" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>                 
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="pay_method_update">Payment Method:</label>
+                <div id="pay_method_update">
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="Payment_update" id="cash_update" value="cash"required >Cash
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="Payment_update" id="Cheque_update" value="cheque"required>Cheque
+                        </label>
+                      </div>
+                </div>
+            </div>
+            
+            <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="month">Month:</label>
+                <select class="form-control" id="month" required>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div>
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="financial_year">Financial Year:</label>
+                <select class="form-control" id="financial_year" required>
+                </select>
+            </div> -->
+            <div class="form-group col-md-8 col-lg-8">
+                <label for="amount_update">Amount(Rs):</label>
+                <input type="text" class="form-control" id="amount_update" placeholder="506044" required>
+            </div>
+            <div class="form-group" style="margin-top: 2%;">
+                <button type="submit" id="update_other_receipts" class="btn btn-success btn-lg " style="margin-left: 2%;">Update</button>        
+                
+            </div>
+        </div>
+
+       
+        
+    </div>
+    <!--end of card-->
+</div>
+</body>
+
+    <%- include ('../partials/footer') -%>
+
+</html>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<!--Sending Data from UI to Server -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#dis_update').hide();
+    $("#dis_update").click(function(){
+        $("#dis_update").hide();
+        $("#update_success").hide();
+        $("#instrument_check").val("");
+        $(".dis_update").removeClass("disable-elements");
+    });
+    $(".refresh").hide();
+    $("#refresh").click(function(){
+        $(".refresh").hide();
+        $("#view_success").hide();
+        $("#otherTable tr:gt(0)").remove();
+        $(".dis").removeClass("disable-elements");
+    });
+    var month1 = new Array();
+        month1[0] = "January";
+        month1[1] = "February";
+        month1[2] = "March";
+        month1[3] = "April";
+        month1[4] = "May";
+        month1[5] = "June";
+        month1[6] = "July";
+        month1[7] = "August";
+        month1[8] = "September";
+        month1[9] = "October";
+        month1[10] = "November";
+        month1[11] = "December";
+    var select_radio = "month";
+        $(".sd").hide();
+        $("#table_val_month").hide();
+        $("#month_radio").click(function(){
+            $(".sd").hide();
+            $(".sm").show();
+            select_radio =  "month";
+        });
+    $("#day_radio").click(function(){
+        $(".sd").show();
+        $(".sm").hide();
+        select_radio = "day";
+    });
+     //Reference the DropDownList.
+    // var ddlYears = document.getElementById("financial_year");
+    var ddlYears1 = document.getElementById("financial_year_view");
+    //Determine the Current Year.
+    var currentYear = (new Date()).getFullYear();
+    lastyears =currentYear -10;
+    //Loop and add the Year values to DropDownList.
+    // for (var i = currentYear; i>=lastyears; i--) {
+    //     var option = document.createElement("OPTION");
+    //     option.innerHTML = ((i-1)+"-"+i);
+    //     option.value = ((i-1)+"-"+i);
+        
+    //     ddlYears.appendChild(option);
+    // }
+    for (var i = currentYear; i>=lastyears; i--) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = ((i-1)+"-"+i);
+        option.value = ((i-1)+"-"+i);
+        
+        ddlYears1.appendChild(option);
+    }
+// Hide Show division
+  //  $(".sh").hide();
+    //$(".sh_update").hide();
+    $("#cash").click(function(){
+       // $(".sh").hide();
+    });
+    $("#cash_update").click(function(){
+       // $(".sh_update").hide();
+    });
+    $("#Cheque").click(function(){
+       // $(".sh").show();
+    });
+    $("#Cheque_update").click(function(){
+      //  $(".sh_update").show();
+    });
+    $('#other_receipts_insert').hide();
+       $('#other_receipts_view').hide();
+       $('#other_receipts_update').hide();
+                
+    $("#btn-insert").click(function(){
+        $('#other_receipts_insert').show();
+        $('#other_receipts_view').hide();
+        $('#other_receipts_update').hide();
+    });
+    $("#btn-view").click(function(){
+        $('#other_receipts_view').show();
+        $('#other_receipts_insert').hide();
+        $('#other_receipts_update').hide();
+        $("#view_success").hide();
+    });
+    $("#btn-update").click(function(){
+        $('#other_receipts_update').show();
+        $('#other_receipts_insert').hide();
+        $('#other_receipts_view').hide();
+        $("#update_success").hide(); 
+    });
+	$('#submit').click(function(e){
+        e.preventDefault();  
+        $.getJSON("https://jsonip.com?callback=?", function(data1) {
+            var user_ip        = data1.ip;
+            let reg_dt         = new Date();
+			let particular         = $("#particular").val();
+			let instrument            = $("#instrument").val();
+            let date1          = new Date($("#date").val());
+            let date           = $("#date").val()
+			let budget_code    = $("#budget_code").val();
+		//	let scheme         = $("#scheme").val();
+            // let month          = $("#month").val();
+            let month          = month1[date1.getMonth()];
+            // let financial_year = $("#financial_year").val();
+            let financial_year = (date1.getFullYear()-1)+'-'+date1.getFullYear();
+            let amount         = $("#amount").val();
+            let payment        = $("input[name='Payment']:checked").val();
+            // let cheque_no      = $("#cheque_no").val();
+            // let cheque_payable = $("#cheque_payable").val();
+            // let bank_name      = $("#bank_name").val();
+            // let branch_name    = $("#branch_name").val(); 
+			var url            = "/submit_other_receipts";
+			if(reg_dt !== "" && user_ip !== "" && date !=="" && budget_code !=="" && month!=="" && financial_year !=="" && amount !=="" && payment !=="" &&particular !==""&&instrument!=""){
+                // if (payment == "cheque"){
+                //     if(cheque_no !=="" && cheque_payable !=="" && bank_name !=="" && branch_name !==""){
+                //         $.post(url,{reg_dt:reg_dt, user_ip:user_ip,letter:letter, so2:so2,date:date,major_head:major_head, scheme:scheme,month:month,financial_year:financial_year,amount:amount,payment:payment,cheque_no:cheque_no, cheque_payable:cheque_payable , branch_name:branch_name, bank_name:bank_name}).done(function(data){
+                //             if(data == "Successful"){
+                //                 swal({
+                //                     title: "other_receipts Insert",
+                //                     text: data,
+                //                     icon: "success",
+                //                     }).then(function(){
+                //                         window.location = '/other_receipts';
+                //                     });       
+                //                 document.getElementById("other_receipts-form").reset();
+                //             }
+                //             else{
+                //                 swal({
+                //                     title: "other_receipts Insert",
+                //                     text: data,
+                //                     icon: "error",
+                //                     });
+                //                 e.preventDefault();
+                //                 document.getElementById("other_receipts-form").reset();
+                //             }
+                //         });                    
+                //     }
+                //     else{
+                //         swal({
+                //             title: "other_receipts Insert",
+                //             text: "Fields Cannot Be Empty",
+                //             icon: "error",
+                //             });                      
+                //         }
+                // }
+               // else{
+                    $.post(url,{reg_dt:reg_dt, user_ip:user_ip,particular:particular,instrument:instrument,date:date,budget_code:budget_code,month:month,financial_year:financial_year,amount:amount,payment:payment}).done(function(data){
+                        if(data == "Successful"){
+                            swal({
+                                title: "Other Receipts Insert",
+                                text: data,
+                                icon: "success",
+                                }).then(function(){
+                                    window.location = '/other_receipts';
+                                });            
+                            document.getElementById("other_receipts-form").reset();
+                        }
+                        else{
+                                swal({
+                                    title: 'Other Receipts Insert' ,
+                                    text: data,
+                                    icon: "error",
+                                    });
+                                e.preventDefault();
+                                document.getElementById("other_receipts-form").reset();
+                            }
+                    });  
+               // }
+            }
+            else{
+                swal({
+                    title: "Other Receipts Insert",
+                    text: "Fields Cannot Be Empty!",
+                    icon: "error",
+                    });                 
+                }
+        })
+    });
+
+    $('#other_view').click(function(e){
+        e.preventDefault();  
+        
+        if(select_radio == "day"){
+        let date = $('#date_view').val();
+        let url = '/other_receipts_display';
+        $.post(url,{date:date,select_radio:select_radio}).done(function(data){
+            if(data!="Data Not Found"){
+                $('#view_success').show();
+                $(".refresh").show();
+                $(".dis").addClass("disable-elements");
+                var t=$("#otherTable").DataTable(); 
+                        t.clear().draw();
+                    var count = Object.keys(data).length;
+                    for(var i=0; i<count;i++){
+                        t.row.add([
+                             data[i].particular,
+                             data[i].instrument,
+                             data[i].date,
+                             data[i].month,
+                             data[i].financial_year,
+                             data[i].budget_code,
+                             data[i].payment_method,
+                             data[i].amount                          
+                            ]).draw(false);             
+                    }
+            }
+            else{
+                swal({
+                                    title: "Other Receipts Update",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+
+            });
+        }
+        else{
+            let month          = $('#month_view').val();
+            let financial_year = $('#financial_year_view').val();
+            let url = '/other_receipts_display';
+            $.post(url,{select_radio:select_radio,financial_year:financial_year,month:month}).done(function(data){
+            if(data!="Data Not Found"){
+                $('#view_success').show();
+                $(".refresh").show();
+                $(".dis").addClass("disable-elements");
+                      var t=$("#otherTable").DataTable(); 
+                        t.clear().draw();
+                    var count = Object.keys(data).length;
+                    for(var i=0; i<count;i++){
+                        t.row.add([
+                             data[i].particular,
+                             data[i].instrument,
+                             data[i].date,
+                             data[i].month,
+                             data[i].financial_year,
+                             data[i].budget_code,
+                             data[i].payment_method,
+                             data[i].amount                          
+                            ]).draw(false);             
+                    }
+            }
+            else{
+                swal({
+                                    title: "Other Receipts Update",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+
+        });
+        }
+    });
+   
+    $('#other_receipts_check').click(function(e){
+        e.preventDefault();
+        
+        let instrument = $("#instrument_check").val();
+        url = '/other_receipts_check';
+        $.post(url,{instrument:instrument}).done(function(data){
+            if(data!="Data Not Found"){
+                $("#update_success").show();
+                $('#dis_update').show();
+                $(".dis_update").addClass("disable-elements");
+                document.getElementById("particular_update").value = data[0].particular;
+                document.getElementById("instrument_update").value = data[0].instrument;
+                document.getElementById("date_update").value = data[0].date;
+                document.getElementById("budget_code _update").value = data[0].budget_code;
+                document.getElementById("amount_update").value = data[0].amount;
+
+              //  document.getElementById("scheme_update").value = data[0].scheme;
+                if(data[0].payment_method=="cash"){
+                    $("#cash_update").prop("checked", true);
+                   // $(".sh_update").hide();
+                }
+                else{
+                    $("#Cheque_update").prop("checked", true);
+                   // $(".sh_update").show();
+                }
+                // document.getElementById("cheque_no_update").value = data[0].cheque_no;
+                // document.getElementById("cheque_payable_update").value = data[0].cheque_payable;
+                // document.getElementById("bank_name_update").value = data[0].bank_name;
+                // document.getElementById("branch_name_update").value = data[0].branch_name;
+            }
+            else{
+               
+                swal({
+                                    title: "Other Receipts Update",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+        });
+
+    });
+
+    $('#update_other_receipts').click(function(e){
+        e.preventDefault();
+        
+        $.getJSON("https://jsonip.com?callback=?", function(data1) {
+            var user_ip        = data1.ip;
+            let reg_dt         = new Date();
+            let instrument_check   = $("#instrument_check").val();
+            let particular         = $("#particular_update").val();
+			let instrument            = $("#instrument_update").val();
+            let date1          = new Date($("#date_update").val());
+            let date           = $("#date_update").val()
+			let budget_code     = $("#budget_code_update").val();
+			//let scheme         = $("#scheme_update").val();
+            // let month          = $("#month_update").val();
+            let month          = month1[date1.getMonth()];
+            // let financial_year = $("#financial_year_update").val();
+            let financial_year = (date1.getFullYear()-1)+'-'+date1.getFullYear();
+            let amount         = $("#amount_update").val();
+            let payment        = $("input[name='Payment_update']:checked").val();
+            // let cheque_no      = $("#cheque_no_update").val();
+            // let cheque_payable = $("#cheque_payable_update").val();
+            // let bank_name      = $("#bank_name_update").val();
+            // let branch_name    = $("#branch_name_update").val(); 
+            var url            = "/update_other_receipts";
+            
+            $.post(url,{user_ip:user_ip,reg_dt:reg_dt,instrument:instrument,instrument_check:instrument_check,particular:particular,date:date,budget_code:budget_code,month:month,financial_year:financial_year,amount:amount,payment:payment}).done(function(data){
+                if(data=="Successful"){
+                    swal({
+                                    title: "Other Receipts Update",
+                                    text: data,
+                                    icon: "success",
+                                    });
+                                    $("#dis_update").hide();
+                                    $("#update_success").hide();
+                                    $(".dis_update").removeClass("disable-elements");
+                }
+                else{
+                    swal({
+                                    title: "other_receipts Update",
+                                    text: data,
+                                    icon: "error",
+                                    });
+                }
+            });
+        });
+
+    });
+
+});
+</script>

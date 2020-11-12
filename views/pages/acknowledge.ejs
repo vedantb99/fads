@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/CSS/ack.css" rel="stylesheet"/>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+  />
+
+      <%- include ('../partials/links') -%>
+
+      <title>Expenditure</title>
+
+  </head>
+  <link href="/CSS/ack.css" rel="stylesheet"/>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div class="container contentbox">
+
+        <h2 class="bolder padding-title form-title">Expenditure</h2>
+  
+    <div class="btn-group btn-group-lg flex-wrap" role="group" aria-label="Basic example">
+  <button type="button" id="btn-insert" class="btn btn-info">Insert</button>
+ <button type="button" id="btn-view" class="btn btn-info">View</button>
+  <button type="button" id="btn-update" class="btn btn-info">Update</button>
+</div>
+        <div id="insert">
+          <h4 class="padding-title form-title">Insert Expenditure</h4><br>
+        <form name="expenditure-form" id="expenditure-form" class="justify-content-center" method="POST">
+            <div id="insert_details">
+            <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="desk_number">Desk Number:</label>
+                <select class="form-control" id="desk_number" required>
+                    <option disabled selected>--Select Desk No--</option>
+                    <% for(var i=0; i < result.length; i++) { %>
+                      <option><%= result[i] %></option>
+                      <% } %>
+                </select>
+            </div> -->
+            <div class="form-group col-md-8 col-lg-8" >
+                <label for="payment_details">Payment Details:</label>
+               <input type="text" class="form-control" id="payment_details" placeholder="e.g. For rice subsidies in District XYZ" required>
+             </div>
+           
+          <div class="form-group col-md-8 col-lg-8" >
+            <label for="voucher_no">Voucher Number:</label>
+            <input type="text" class="form-control" id="voucher_no" placeholder="e.g. " required>
+        </div>
+        <div class="form-group col-md-8 col-lg-8" >
+          <label for="particular">Particular:</label>
+          <input type="text" class="form-control input-box" id="particular" placeholder="e.g. " required>
+      </div>
+      <div class="form-group col-md-8 col-lg-8">
+        <label for="budget_code">Budget Code:</label>
+        <select class="form-control" id="budget_code" required>
+            <% for(var i=0; i < result.length; i++) { %>
+                <option><%= result[i] %></option>
+            <% } %>
+        </select>  
+        
+    </div>
+     
+              <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="month">Month:</label>
+                <select class="form-control" id="month" required>
+                  <option disabled selected>--Select Month--</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div> -->
+
+            <!-- <div class="form-group col-md-8 col-lg-8">
+
+            <div class="form-group col-md-8 col-lg-8">
+
+                <label for="financial_year">Financial Year:</label>
+                <select class="form-control" id="financial_year" required>
+                  <option disabled selected>--Select Financial Year--</option>
+                </select>
+            </div> -->
+
+                 <div class="form-group col-md-8 col-lg-8" >
+                <label for="date">Date:</label>
+                  <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group col-md-8 col-lg-8" >
+                <label for="cheque_number">Cheque No.:</label>
+                  <input type="text" class="form-control" id="cheque_number" placeholder="e.g. MH12345678987M" required>
+                  </div>
+                  <div class="form-group col-md-8 col-lg-8" >
+                <label for="amount">Amount:</label>
+                  <input type="text" class="form-control" id="amount" placeholder="506044" required>
+                  </div>
+                  <!-- <div class="form-group col-md-8 col-lg-8" >
+                <label for="cheque_date">Cheque Date:</label>
+                  <input type="date" id="cheque_date" class="form-control" required>
+                </div> -->
+
+                            <button class="btn btn-success" id="insert_submit">Submit</button>
+</div>
+
+
+        <!--<div id="acknowledgement_insert">
+            <table id="ackTable" cellspacing="0">
+                <tr>
+                    <th>Payment Details</th>
+                    <th>Date of Issue</th>
+                    <th>Cheque No.</th>
+                    <th>Amount</th>
+                    <th>Cheque Date</th>
+                  </tr>
+                <tr height="100">
+                  <th> <input type="text" class="form-control" id="payment_details" placeholder="e.g. For rice subsidies in District XYZ" required></th>
+                  <th><input type="date" id="date" class="form-control" value="12/06/20"required></th>
+                  <th><input type="text" class="form-control" id="gras_receipt" value="MH12345678987M" required></th>
+                  <th><input type="text" class="form-control" id="amount" value="506044" required></th>
+                  <th><input type="date" id="date" class="form-control" value="11/06/20" required></th>
+
+
+                </tr>
+
+            </table>
+      <button class="btn btn-primary button-top" id="print">Print</button>
+
+            </div>-->
+
+</form>
+      </div>
+      <!--View starts here--->
+
+
+
+       <div id="view">
+          <h4 class="bold padding-title form-title">View Expenditure</h4><br>
+                <div class="alert alert-info font-weight-bold" role="alert">Please Insert the search parameters.</div>
+                <br>
+        <form name="acknowledgement-form" id="gras-form" class="justify-content-center " method="POST">
+            <div id="view_details">
+               <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="desk_number_view">Desk Number:</label>
+                <select class="form-control" id="desk_number_view" required>
+                    <option disabled selected>--Select Desk Number--</option>
+                    <% for(var i=0; i < result.length; i++) { %>
+                      <option><%= result[i] %></option>
+                      <% } %>
+                </select>
+            </div> -->
+             <div class="form-group col-md-8 col-lg-8" >
+                <label for="date_view">Date:</label>
+                  <input type="date" id="date_view" class="form-control" required>
+                </div>
+                <div class="form-group col-md-8 col-lg-8" >
+                <label for="cheque_number_view">Cheque No.:</label>
+                  <input type="text" class="form-control" id="cheque_number_view" placeholder="e.g. MH12345678987M" required>
+                  </div>
+                 
+                <div class="row">
+
+                            <button class="btn btn-success" id="view_submit">submit</button>
+</div>
+</div>
+
+
+        <div id="acknowledgement_view">
+            <table id="ackTable" class="table" cellspacing="0">
+              <thead>
+              <tr>
+                    <th>Particular</th>
+                    <th>Payment Details</th>
+                    <th>Date</th>
+                    <th>Voucher Number</th>
+                    <th>Budget Code</th>
+                    <th>Cheque Number</th>
+                    <th>Amount</th>
+              </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Particular</td>
+                    <td>Payment Details</td>
+                    <td>Date</td>
+                    <td>Voucher Number</td>
+                    <td>Budget Code</td>
+                    <td>Cheque Number</td>
+                    <td>Amount</td>
+                  </tr>
+                </tbody>
+              
+
+            </table>
+           
+      <button class="btn btn-success " id="print">Print</button>
+    
+            </div>
+
+</form>
+      </div>
+
+
+
+      <!-- Update starts here-->
+      <div id="update">
+
+          <h4 class="bold padding-title form-title">Update Expenditure</h4><br>
+
+          <form name="acknowledgement-form-check" id="acknowledgement-form-check" class="justify-content-center " method="POST">
+            
+            <div id="update_search">
+               <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="desk_number_up">Desk Number:</label>
+                <select class="form-control" id="desk_number_up" required>
+                  <option disabled selected>--Select Desk Number--</option>
+                  <% for(var i=0; i < result.length; i++) { %>
+                    <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div> -->
+              <div class="form-group col-md-8 col-lg-8" >
+                <label for="date_up">Date:</label>
+                  <input type="date" id="date_up" class="form-control" required>
+                </div>
+                <div class="form-group col-md-8 col-lg-8" >
+                <label for="cheque_number_up">Cheque No.:</label>
+                  <input type="text" class="form-control" id="cheque_number_up" placeholder="e.g. MH12345678987M" required>
+                  </div>
+                 <div class="row">
+                   <button class="btn btn-success" id="update_submit_search">Search</button>
+                  </div>
+                </form>
+                </div>
+
+                <div id="update_details">
+                  <form name="acknowledgement-form-up" id="acknowledgement-form-up" class="justify-content-center " method="POST">
+                    <!-- <div class="form-group col-md-8 col-lg-8">
+                      <label for="desk_number_update">Desk Number:</label>
+                      <select class="form-control" id="desk_number_update" required>
+                          <option disabled selected>--Select Desk No--</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>
+                          <option>11</option>
+                          <option>12</option>
+                          <option>13</option>
+                          <option>14</option>
+                          <option>15</option>
+                      </select>
+                  </div> -->
+                  
+                <div class="form-group col-md-8 col-lg-8" >
+                  <label for="voucher_no_update">Voucher Number:</label>
+                  <input type="text" class="form-control input-box" id="voucher_no_update" placeholder="e.g. " required>
+              </div>
+              <div class="form-group col-md-8 col-lg-8" >
+                <label for="particular_update">Particular:</label>
+                <input type="text" class="form-control input-box" id="particular_update" placeholder="e.g. " required>
+            </div>
+            <div class="form-group col-md-8 col-lg-8">
+              <label for="budget_code_update">Budget Code:</label>
+              <select class="form-control" id="budget_code_update" required>
+                  <% for(var i=0; i < result.length; i++) { %>
+                      <option><%= result[i] %></option>
+                  <% } %>
+              </select>  
+              
+          </div>                  <div class="form-group col-md-8 col-lg-8" >
+                      <label for="payment_details_update">Payment Details:</label>
+                     <input type="text" class="form-control" id="payment_details_update" placeholder="e.g. For rice subsidies in District XYZ" required>
+                   </div>
+                    <!-- <div class="form-group col-md-8 col-lg-8">
+                      <label for="month_update">Month:</label>
+                      <select class="form-control" id="month_update" required disabled>
+                        <option disabled selected>--Select Month--</option>
+                          <option>January</option>
+                          <option>February</option>
+                          <option>March</option>
+                          <option>April</option>
+                          <option>May</option>
+                          <option>June</option>
+                          <option>July</option>
+                          <option>August</option>
+                          <option>September</option>
+                          <option>October</option>
+                          <option>November</option>
+                          <option>December</option>
+                      </select>
+                  </div>
+                  <div class="form-group col-md-8 col-lg-8">
+                      <label for="financial_year_update">Financial Year:</label>
+                      <select class="form-control" id="financial_year_update" required disabled>
+                        <option disabled selected>--Select Financial Year--</option>
+                      </select>
+                  </div> -->
+      
+                       <div class="form-group col-md-8 col-lg-8" >
+                      <label for="date_update">Date:</label>
+                        <input type="date" id="date_update" class="form-control" required>
+                      </div>
+                      <div class="form-group col-md-8 col-lg-8" >
+                      <label for="cheque_number_update">Cheque No.:</label>
+                        <input type="text" class="form-control" id="cheque_number_update" placeholder="e.g. MH12345678987M" required>
+                        </div>
+                        <div class="form-group col-md-8 col-lg-8" >
+                      <label for="amount_update">Amount:</label>
+                        <input type="text" class="form-control" id="amount_update" placeholder="506044" required>
+                        </div>
+                        <!-- <div class="form-group col-md-8 col-lg-8" >
+                      <label for="cheque_date_update">Cheque Date:</label>
+                        <input type="date" id="cheque_date_update" class="form-control" required>
+                      </div> -->
+
+                  <button class="btn btn-success" id="update_submit">Submit</button>
+</div>
+             
+
+</div>
+
+      </div>
+
+
+  </body>
+      <%- include ('../partials/footer') -%>
+
+  </html>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    // var ddlYears = document.getElementById("financial_year");
+    // var ddlYears1 = document.getElementById("financial_year_update");
+        //Determine the Current Year.
+        // var currentYear = (new Date()).getFullYear();
+        // lastyears =currentYear -10;
+        // //Loop and add the Year values to DropDownList.
+        // for (var i = currentYear; i>=lastyears; i--) {
+        //     var option = document.createElement("OPTION");
+        //     option.innerHTML = ((i-1)+"-"+i);
+        //     option.value = ((i-1)+"-"+i);
+
+        //     ddlYears.append(option);
+        // }
+        // for (var i = currentYear; i>=lastyears; i--) {
+        //     var option = document.createElement("OPTION");
+        //     option.innerHTML = ((i-1)+"-"+i);
+        //     option.value = ((i-1)+"-"+i);
+
+        //     ddlYears1.append(option);
+        // }
+            var month1 = new Array();
+        month1[0] = "January";
+        month1[1] = "February";
+        month1[2] = "March";
+        month1[3] = "April";
+        month1[4] = "May";
+        month1[5] = "June";
+        month1[6] = "July";
+        month1[7] = "August";
+        month1[8] = "September";
+        month1[9] = "October";
+        month1[10] = "November";
+        month1[11] = "December";
+    var error = [];
+    $('#insert').hide();
+    $('#view').hide();
+    $('#update').hide();
+    $('#acknowledgement_insert').hide();
+    $('#acknowledgement_view').hide();
+    $('#update_details').hide();
+           
+    $("#btn-insert").click(function(){
+      $('#insert').show();
+      $('#view').hide();
+      $('#update').hide();
+           // $("#insert_submit").click(function(){
+              //$('#acknowledgement_insert').show();
+              //$('#insert_details').hide();
+            //});
+    });
+    $("#btn-view").click(function(){
+      $('#insert').hide();
+      $('#view').show();
+      $('#update').hide();
+
+    });
+            
+    $("#btn-update").click(function(){
+      $('#update').show();
+      $('#view').hide();
+      $('#insert').hide();
+
+    });
+    $("#insert_submit").click(function(e){
+      e.preventDefault();
+      error=[];
+      $.getJSON("https://jsonip.com?callback=?", function(data1) {
+      var user_ip   = data1.ip;
+      
+      let reg_dt = new Date();
+      let particular = $('#particular').val();
+      let payment_details = $('#payment_details').val();
+      let date = new Date($('#date').val());
+      let cheque_number = $('#cheque_number').val();
+      let amount = $('#amount').val();
+      let voucher_no= $('#voucher_no').val();
+      let budget_code= $('#budget_code').val();
+      let financial_year = date.getFullYear()-1+"-"+date.getFullYear() ;
+      let month = month1[date.getMonth()];
+      date=$('#date').val();
+      let url = '/insert_ack';
+    //  console.log(particular,voucher_no,payment_details,month,financial_year,cheque_number,amount,date);
+      
+      // validations
+
+      if( particular==""|| voucher_no==""|| payment_details ==''||budget_code =='' || month =="" || financial_year=="" ||cheque_number=='' || amount =='' || date =='' ){
+        error.push('Fields Cannot be Empty!');
+      }
+      // if( /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/.test(amount)==false){
+      //   error.push('Invaild Amount');
+      // }
+      if(/^[0-9a-zA-Z]+$/.test(cheque_number)==false){
+        error.push('Not A Vaild Cheque Number');
+      }
+      // console.log(user_ip);
+      if(error.length==0){
+        $.post(url,{month:month,financial_year:financial_year,particular:particular,payment_details:payment_details,date:date,cheque_number:cheque_number,amount:amount,voucher_no:voucher_no,budget_code:budget_code,reg_dt:reg_dt,user_ip:user_ip}).done(function(data){
+          if(data=='Successful'){
+            swal({
+            title: 'Expenditure Insert',
+            text: data,
+            icon: "success",
+        });
+          }
+          else{
+            swal({
+            title: 'Expenditure Insert',
+            text: data,
+            icon: "error",
+        });
+          }
+        
+        });
+      }
+      else{
+        swal({
+            title: 'Expenditure Insert',
+            text: error[0],
+            icon: "error",
+        });
+        error=[];
+      }
+      });
+    });
+
+    $('#update_submit_search').click(function(e){
+      e.preventDefault();
+      error=[];
+      // let desk_number = $('#desk_number_up').val();
+      let date = $('#date_up').val();
+      let cheque_number = $('#cheque_number_up').val();
+      let url = '/check_ack'
+      
+      // validations
+      if(cheque_number=='' || date ==''){
+        error.push('Fields Cannot be Empty!');
+      }
+      // if( /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/.test(amount)==false){
+      //   error.push('Invaild Amount');
+      // }
+      if(/^[0-9a-zA-Z]+$/.test(cheque_number)==false){
+        error.push('Not A Vaild Cheque Number');
+      }
+    
+      if(error.length==0){
+        $.post(url,{date:date,cheque_number:cheque_number}).done(function(data){
+          if(data!='Data Not Found'){
+            $('#update_details').show();
+            $('#update_search').show();
+        
+        $('#update_submit_search').hide();
+            $("#update_search").addClass("disable-elements");
+                document.getElementById("particular_update").value = data[0].particular;
+                document.getElementById("payment_details_update").value = data[0].payment_details;
+                document.getElementById("date_update").value = data[0].date;
+                // document.getElementById("month_update").value = data[0].month;
+                // document.getElementById("financial_year_update").value = data[0].financial_year;
+                document.getElementById("cheque_number_update").value = data[0].cheque_no;
+                document.getElementById("amount_update").value = data[0].amount;
+                document.getElementById("voucher_no_update").value = data[0].voucher_no;
+                document.getElementById("budget_code_update").value = data[0].budget_code;
+
+          }
+          else{
+            swal({
+            title: 'Expenditure Update',
+            text: data,
+            icon: "error",
+            });
+          }
+        
+        });
+      }
+      else{
+        swal({
+            title: 'Expenditure Update',
+            text: error[0],
+            icon: "error",
+        });
+        error=[];
+      }
+    });
+    
+    $('#update_submit').click(function(e){
+      e.preventDefault();
+      $.getJSON("https://jsonip.com?callback=?", function(data1) {
+      var user_ip   = data1.ip;
+      let particular = $('#particular_update').val();
+      let date_check = $('#date_up').val();
+      let cheque_number_check = $('#cheque_number_up').val();
+      let reg_dt = new Date();
+      let voucher_no = $('#voucher_no_update').val();
+      let budget_code=$('#budget_code_update').val();
+      let payment_details = $('#payment_details_update').val();
+      let date = new Date($('#date_update').val());
+      let cheque_number = $('#cheque_number_update').val();
+      let amount = $('#amount_update').val();
+      // let cheque_date = $('#cheque_date_update').val();
+      let financial_year = date.getFullYear()-1+"-"+date.getFullYear() ;
+      let month = month1[date.getMonth()];
+      date=$('#date_update').val();
+      let url = '/update_ack';
+     // console.log(cheque_number_check);
+      $.post(url,{cheque_number_check:cheque_number_check,user_ip:user_ip,particular:particular,date_check:date_check,reg_dt:reg_dt,voucher_no:voucher_no,budget_code:budget_code,payment_details:payment_details,date:date,cheque_number:cheque_number,amount:amount,financial_year:financial_year,month:month}).done(function(data){
+          if(data=='Successful'){
+            swal({
+            title: 'Expenditure Update',
+            text: data,
+            icon: "success",
+            });
+          }else{
+            swal({
+            title: 'Expenditure Update',
+            text: data,
+            icon: "error",
+            });
+          }
+        });
+      });
+    });
+
+  $("#view_submit").click(function(e){
+    e.preventDefault();
+        
+        // $('#view_details').hide();
+        error=[];
+      // let desk_number = $('#desk_number_view').val();
+      let date = $('#date_view').val();
+      let cheque_number = $('#cheque_number_view').val();
+      let url = '/check_ack'
+      
+      // validations
+      if(cheque_number=='' || date ==''){
+        error.push('Fields Cannot be Empty!');
+      }
+      // if( /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/.test(amount)==false){
+      //   error.push('Invaild Amount');
+      // }
+      if(/^[0-9a-zA-Z]+$/.test(cheque_number)==false){
+        error.push('Not A Vaild Cheque Number');
+      }
+    
+      if(error.length==0){
+        $.post(url,{date:date,cheque_number:cheque_number}).done(function(data){
+          if(data!='Data Not Found'){
+            $('#acknowledgement_view').show();
+            $("#view_details").addClass("disable-elements");
+            var t=$("#ackTable").DataTable(); 
+                        t.clear().draw();
+                    var count = Object.keys(data).length;
+                    for(var i=0; i<count;i++){
+                      t.row.add([
+                             data[i].particular,
+                             data[i].payment_details,
+                             data[i].date,
+                             data[i].voucher_no,
+                             data[i].budget_code,
+                             data[i].cheque_no,
+                             data[i].amount                          
+                            ]).draw(false);             
+
+                        // var row =  table.insertRow(-1);
+                        // cell = row.insertCell(0);
+                        // cell.innerHTML = data[i].particular;
+                        // cell = row.insertCell(1);
+                        // cell.innerHTML = data[i].payment_details;
+                        // cell = row.insertCell(2);
+                        // cell.innerHTML = data[i].date;
+                        // // cell = row.insertCell(3);
+                        // // cell.innerHTML = data[i].month;
+                        // cell = row.insertCell(3);
+                        // cell.innerHTML = data[i].voucher_no;
+                        // cell = row.insertCell(4);
+                        // cell.innerHTML = data[i].budget_code;
+                        // cell = row.insertCell(5);
+                        // cell.innerHTML = data[i].cheque_no;
+                        // cell = row.insertCell(6);
+                        // cell.innerHTML = data[i].amount;
+                        // // cell = row.insertCell(5);
+                        // // cell.innerHTML = data[i].cheque_date;
+                      
+                    }
+          }
+          else{
+            swal({
+            title: 'Expenditure View',
+            text: data,
+            icon: "error",
+            });
+          }
+        
+        });
+      }
+      else{
+        swal({
+            title: 'Expenditure View',
+            text: error[0],
+            icon: "error",
+        });
+        error=[];
+      }
+  });
+});
+</script>

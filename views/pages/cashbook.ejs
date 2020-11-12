@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+    <link href="/CSS/gras.css" rel="stylesheet"/>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+  />
+
+    <title>Cashbook</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div class="container contentbox" >
+
+      <header class="jumbotron">   
+        <h2 class="bolder form-title text-center">Cashbook</h2>
+    </header>
+
+    <div class="btn-group btn-group-lg flex-wrap justify-content-center" role="group" aria-label="Basic example">
+        <button type="button" id="btn-receipt" class="btn btn-info">Receipt</button>
+        <button type="button" id="btn-expenditure" class="btn btn-info">Expenditure</button>
+        <button type="button" id="btn-abstract" class="btn btn-info">Abstract</button>
+    </div>
+
+      <form
+        id="cashbook-form"
+        class="justify-content-center"
+        method="GET">
+      
+
+      <div id="input_receipt">
+        <h3 class="bolder form-title text-center">Receipt Side of Cash Book</h3>
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="month_receipt">Month:</label>
+          <select class="form-control" id="month_receipt" required>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+        </div>
+
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="financial_year_receipt">Financial Year:</label>
+          <select class="form-control" id="financial_year_receipt" required> </select>
+        </div>
+
+        <button type="button" class="btn btn-success" id="submit_receipt" style="margin-top: 2%;">
+          Submit
+        </button>
+  
+        <table
+        id="receipt_table"
+        class="table table-striped table-bordered"
+        cellspacing="0"
+      >
+      <thead>
+          <tr>
+           
+          <th>Date</th>
+          <th>Receipt No.</th>
+          <th data-sort='YYYYMMDD'>Particulars</th>
+          <th>Amount</th>   
+          <th>Type of transaction</th>
+          <th>Maker Name</th>
+          <th>1st Checker</th>
+          <th>2nd Checker</th>
+          <th>3rd Checker</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>2020-09-24</td>
+          <td>3425252</td>
+          <td>Rice from Pune</td>
+          <td>434225</td>
+          <td>cash</td>
+          <td>Jr.Clerk</td>
+          <td>Superintendent</td>
+          <td>DDO</td>
+          <td>FADS</td>
+          </tr>
+         
+           
+        </tbody>
+  
+      </table>
+
+      </div>
+      
+      <div id="input_exp">
+        <h3 class="bolder form-title text-center">Expenditure Side of Cash Book</h3>
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="month_exp">Month:</label>
+          <select class="form-control" id="month_exp" required>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="financial_year_exp">Financial Year:</label>
+          <select class="form-control" id="financial_year_exp" required> </select>
+        </div>
+
+        <button type="button"  class="btn btn-success" id="submit_exp" style="margin-top: 2%;">
+          Submit
+        </button>
+        <table
+        id="expenditure_table"
+        class="table table-striped table-bordered"
+        cellspacing="0"
+      >
+      <thead>
+          <tr>
+           
+          <th>Date</th>
+          <th>Voucher No.</th>
+          <th>Particulars</th>
+          <th>Amount</th>   
+          <th>Type of transaction</th>
+          <th>Maker Name</th>
+          <th>1st Checker</th>
+          <th>2nd Checker</th>
+          <th>3rd Checker</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>2020-09-24</td>
+          <td>3425252</td>
+          <td>Rice from Pune</td>
+          <td>434225</td>
+          <td>cash</td>
+          <td>Jr.Clerk</td>
+          <td>Superintendent</td>
+          <td>DDO</td>
+          <td>FADS</td>
+          </tr>
+         
+           
+        </tbody>
+      </table>
+
+      </div>
+      <div id="input_abstract">
+        <h3 class="bolder form-title text-center">Abstract of Cash Book</h3>
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="month_abstract">Month:</label>
+          <select class="form-control" id="month_abstract" required>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-8 col-lg-8 sm input-box">
+          <label for="financial_year_abstract">Financial Year:</label>
+          <select class="form-control" id="financial_year_abstract" required> </select>
+        </div>
+
+        <button type="button"  class="btn btn-success" id="submit_abstract" style="margin-top: 2%;">
+          Submit
+        </button>
+        <table
+        id="abstract_table"
+        class="table table-striped table-bordered"
+        cellspacing="0"
+      >
+      <thead>
+          <tr>
+           
+          <th>Date</th>
+          <th>Receipt</th>
+          <th>Expenditure</th>
+          
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>2020-09-24</td>
+          <td>3425252</td>
+          <td>3453</td>
+        
+         </tr>
+           
+        </tbody>
+        <tfoot align="right">
+          <tr><th>Total</th><th></th><th></th></tr>
+        </tfoot>
+      </table>
+      
+
+      </div>
+  
+      </form>
+</div>
+  </body>
+  <%- include ('../partials/footer') -%>
+  </html>
+  
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      //  window.example1=0;
+      // window.example2=0;
+      // var select_radio = "month";
+      $("#input_abstract").hide();
+      $("#input_receipt").hide();
+      $("#input_exp").hide();
+      $("#receipt_table").hide();
+      $("#expenditure_table").hide();
+      $("#abstract_table").hide();
+
+  
+
+      //creating the receipt side of cashbook using DataTables
+      $("#btn-receipt").click(function (e) {
+        $("#input_receipt").show();
+        $("#input_abstract").hide();
+        $("#input_exp").hide();
+
+
+      });
+        $("#submit_receipt").click(function (e) {
+        
+          $("#submit_receipt").prop('disabled', true);
+      let month = $("#month_receipt").val();
+      let financial_year = $("#financial_year_receipt").val();
+      var url = "/fetch_receipt";
+      $.post(url, {
+        month: month,
+        financial_year: financial_year,
+        // select_radio: select_radio,
+      }).done(function (data) {
+        if (data!="Unsuccessful") {
+          $("#receipt_table").show();
+          var t=$("#receipt_table").DataTable({  dom:'Bfrtip',
+              buttons:[{
+                extend:'print',
+                text: 'Print Receipt Side',
+                    title: 'Receipt Side',
+              }], "columnDefs": [{
+    "defaultContent": "-",
+    "targets": "_all"
+  }]
+});   //creating DataTable
+        t.clear().draw();
+        console.log(data);
+                     for (var i = 0; i < data[0].length; i++) {
+           
+      t.row.add([data[0][i].date,
+                data[0][i].letter_no,
+                data[0][i].particular,
+                data[0][i].amount,
+                data[0][i].payment_method,
+                "Junior",
+                data[0][i].insert_by,
+                "Senior",
+                "DDO"]).draw(false);
+                                               
+                    }
+                    for (var i = 0; i < data[1].length; i++) {
+           
+           t.row.add([data[1][i].date,
+                     data[1][i].instrument,
+                     data[1][i].particular,
+                     data[1][i].amount,
+                     data[1][i].payment_method,
+                     "Junior",
+                     data[1][i].insert_by,
+                     "Senior",
+                     "DDO"]).draw(false);
+                                                    
+                         }  
+                }
+            else{
+                swal({
+                                    title: "Receipt Side error",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+
+        });
+      //   var url = "/other_receipts_display";
+      //   $.post(url, {
+      //   month: month,
+      //   financial_year: financial_year,
+      //   // select_radio: select_radio,
+      // }).done(function (data) {
+      //   if (data) {
+      //                for (var i = 0; i < data.length; i++) {
+
+      //                   t.row.add([data[i].date,
+      //                             data[i].instrument,
+      //                             data[i].particular,
+      //                             data[i].amount,
+      //                             data[i].payment_method,
+      //                             "Senior Clerk",
+      //                             data[i].insert_by,
+      //                             "Supervisor",
+      //                             "DDO"]).draw(false);
+                   
+      //               }
+             
+      //           }
+      //       else{
+      //           swal({
+      //                               title: "Other Receipt Side error"+data,
+      //                               text: data,
+      //                               icon: "error",
+      //                               });
+      //       }
+
+      //   });
+
+      });
+
+
+
+
+
+
+      $("#btn-expenditure").click(function (e) {
+        
+        $("#input_exp").show();
+        $("#input_abstract").hide();
+        $("#input_receipt").hide();
+
+      });   
+        $("#submit_exp").click(function (e) {
+        $("#expenditure_table").show();
+        $("#submit_exp").prop('disabled', true);
+
+      let month = $("#month_exp").val();
+      let financial_year = $("#financial_year_exp").val();
+      var url = "/check_expenditure";
+      $.post(url, {
+        month: month,
+        financial_year: financial_year,
+      }).done(function (data) {
+        if (data && data!=="Data Not Found") {
+          var t=$("#expenditure_table").DataTable({ dom:'Bfrtip',
+              buttons:[{
+                extend:'print',
+                text: 'Print Expenditure Side',
+                    title: 'Expenditure Side',
+              }],"columnDefs": [{
+    "defaultContent": "-",
+    "targets": "_all"
+  }]});   
+            t.clear().draw();
+                     for (var i = 0; i < data.length; i++) {
+            
+                        t.row.add([data[i].date,
+                        data[i].voucher_no,
+                        data[i].particular,
+                        data[i].amount,                                 
+                        data[i].payment_details,                                 
+                            
+                                  data[i].insert_by,
+                                  "Senior",
+                                  "Supervisor",
+                                  "DDO"]).draw(false);
+
+                    }
+                    
+                 // t.rows.add(dataset).draw(false);
+                }
+            else{
+                swal({
+                                    title: "Receipt Side error no idea",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+
+        });
+
+      });
+
+       
+
+//          IF ELSE FOR NO DATA FOUND AND TABLE DISPLAY PUT IN TRY CATCH PUT CLASS
+
+
+      $("#btn-abstract").click(function (e) {
+        $("#input_exp").hide();
+        $("#input_receipt").hide();
+
+        $("#input_abstract").show();});
+        $("#submit_abstract").click(function (e) {
+          $("#submit_abstract").prop('disabled', true);
+
+          var example1=0;
+          var example2=0;
+
+          var example3=0;
+        var url="/balance";
+        let month = $("#month_abstract").val();
+      let financial_year = $("#financial_year_abstract").val();
+        var op_balance;
+        var closing_balance;
+        var f_year=financial_year.substring(5,);
+        $.post(url,{month:month,f_year:f_year}).done(function(data){
+                    if(data && data!==""){
+                     
+            example1 += data[0].opening_bal;
+            example2+=data[0].closing_bal;
+            example3+=data[0].gras_total;
+            console.log("inside post"+example1);
+            var total_receipt;
+        var total_expenditure;
+            var t=$("#abstract_table").DataTable({
+              "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // // Remove the formatting to get integer data for summation
+            // var intVal = function ( i ) {
+            //     return typeof i === 'string' ?
+            //         i.replace(/[\$,]/g, '')*1 :
+            //         typeof i === 'number' ?
+            //             i : 0;
+            // };
+           total_receipt = api
+                .column( 1 )
+                .data()
+                .reduce( function (a, b) {
+                    return a+b;
+                }, 0 );
+              total_expenditure = api
+                .column( 2 )
+                .data()
+                .reduce( function (a, b) {
+                    return a+b;
+                }, 0 );
+
+                $( api.column( 1 ).footer() ).html(
+                          total_receipt            );
+            $( api.column( 2 ).footer() ).html(
+                 total_expenditure
+            );
+              },
+              dom:'Bfrtip',
+              buttons:[{
+                extend:'print',footer:true,
+                text: 'Print Cash Book',
+                    title: 'Cash Book 4408',
+                messageTop:  'Opening Balance =  '+example1,
+                messageBottom: 'GRAS Total = '+example3+' '+'Closing Balance =  '+example2,
+              }],
+             
+
+            });   
+            t.clear().draw();
+
+//console.log(data[0].opening_bal);
+
+var remset;
+       // var otherset;
+        var expset;
+        console.log("outside post"+example1);
+  
+     
+      // let month = 'October';
+      // let financial_year = '2019-2020';
+
+       url = "/abstract";
+      $.post(url, {
+        month: month,
+        financial_year: financial_year,
+        // select_radio: select_radio,
+      }).done(function (data) {
+        if (data) {
+          // console.log(data)
+          var date,i,j;
+          // var max = data[0][0].length;
+          // if(data[0][1].length>max){
+          //   max=data[0][1].length
+          // }
+           
+          
+         
+         
+          for(i=1; i<=31; i++){
+            var receipts_total=0;
+            var expenditure_total=0;
+            var date_abs='';
+            var test_dt='';
+            
+            // var check1=false,check2=false,check3=false;
+            for (j=0; j<data[0].length; j++){ //remittance
+              if(parseInt((data[0][j].date).substring(8,))==i)  //  { {{11 septm,123},{},{}},,{},{}}
+              {
+                test_dt=data[0][j].date;
+                
+                receipts_total+=data[0][j].amt;
+              }     
+            }
+            for (j=0; j<data[1].length; j++){ //other_remittance
+              if(parseInt((data[1][j].date).substring(8,))==i)
+              {
+                // check2=true;
+                test_dt=data[1][j].date;
+                receipts_total+=data[1][j].amt;
+              }     
+            }
+            for (j=0; j<data[2].length; j++){ //other_remittance
+              if(parseInt((data[2][j].date).substring(8,))==i)
+              {
+                // check3=true;
+                test_dt=data[2][j].date;
+                expenditure_total+=data[2][j].amt;
+              }     
+            }
+           // console.log("outide if");
+            if(test_dt!=='')
+            {
+              date_abs=test_dt;
+             // console.log("He");
+             // console.log(date_abs,receipts_total,expenditure_total);
+              // dataset[k][0]=date_abs;
+              // dataset[k][1]=receipts_total;
+              // dataset[k][2]=expenditure_total;
+                           t.row.add([date_abs,receipts_total,expenditure_total]).draw(false);
+             // k++;
+
+            }
+            // if(check1==true)
+            // {
+
+            // }
+            // else if (check2==true)
+            // {
+
+            // }
+            // else if(check3==true)
+            // {
+
+            // }
+
+          }
+     
+
+          //  remset=new Array(Object.keys(data).length);
+          //            for (var i = 0; i < data.length; i++) {
+          //   remset[i] = new Array(2);
+          //               remset[i][0]=data[i].date;
+          //               remset[i][1]=data[i].amount;
+          //            }
+          //            //console.log(remset);
+          //            return remset;
+         // t.rows.add(dataset).draw(false);
+
+            
+        }
+            else{
+                swal({
+                                    title: "Cashbook total fetch Side error",
+                                    text: data,
+                                    icon: "error",
+                                    });
+            }
+
+        });
+
+ url="/submit_cashbook";
+        $.post(url,{month:month, financial_year:financial_year}).done(function(data){
+                    if(data){
+
+        var total_data = data['total'].map(function(item){
+                        return item;
+                        });
+     
+         // console.log(total_data[0][0]);
+       
+                      }              
+      });
+     
+
+     
+      $("#abstract_table").show();
+                        }
+                        else{
+                          swal({
+                                    title: "Data Not Found",
+                                    text: data,
+                                    icon: "error",
+                                    });
+                        }
+     
+         // console.log(total_data[0][0]);
+       
+                      });   
+                    
+ 
+     
+      });
+     // }); 
+      $("#financial_year_abstract").ready(function () {
+      //Reference the DropDownList.
+      var ddlYears = document.getElementById("financial_year_abstract");
+      //Determine the Current Year.
+      var currentYear = new Date().getFullYear();
+      lastyears = currentYear - 10;
+      //Loop and add the Year values to DropDownList.
+      for (var i = currentYear; i >= lastyears; i--) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = i - 1 + "-" + i;
+        option.value = i - 1 + "-" + i;
+
+        ddlYears.appendChild(option);
+      }
+    });
+    $("#financial_year_receipt").ready(function () {
+      //Reference the DropDownList.
+      var ddlYears = document.getElementById("financial_year_receipt");
+      //Determine the Current Year.
+      var currentYear = new Date().getFullYear();
+      lastyears = currentYear - 10;
+      //Loop and add the Year values to DropDownList.
+      for (var i = currentYear; i >= lastyears; i--) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = i - 1 + "-" + i;
+        option.value = i - 1 + "-" + i;
+
+        ddlYears.appendChild(option);
+      }
+    });
+    $("#financial_year_exp").ready(function () {
+      //Reference the DropDownList.
+      var ddlYears = document.getElementById("financial_year_exp");
+      //Determine the Current Year.
+      var currentYear = new Date().getFullYear();
+      lastyears = currentYear - 10;
+      //Loop and add the Year values to DropDownList.
+      for (var i = currentYear; i >= lastyears; i--) {
+        var option = document.createElement("OPTION");
+        option.innerHTML = i - 1 + "-" + i;
+        option.value = i - 1 + "-" + i;
+
+        ddlYears.appendChild(option);
+      }
+    });
+
+
+
+    });
+</script>

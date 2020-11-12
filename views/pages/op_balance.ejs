@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+
+    <title>Opening Balance</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div
+      class=" container col-md-8 col-lg-8 contentbox"
+    >
+      
+      <div class="btn-group btn-group-lg flex-wrap justify-content-center" role="group" aria-label="Basic example">
+        <button type="button" id="btn-insert" class="btn btn-info">Insert</button>
+        <button type="button" id="btn-update" class="btn btn-info">Update</button>
+      </div>
+
+<div id="insert_op">
+  <div class="header">
+    <h3 class="bolder">Insert Opening Balance</h3>
+  </div>
+        <form
+          name="opening_balance"
+          id="opening_balance-form"
+          class="justify-content-center"
+          method="POST"
+        >
+          <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="password">Old Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="password" required>
+                </div>  -->
+                <div class="form-group col-md-4 col-lg-4 input-box ">
+                    <label for="amount_up">Opening Balance Amount(Rs):</label>
+                    <input type="text" class="form-control" id="opening_balance_insert_amount" placeholder="506044" required>
+                </div>
+                <div class="form-group col-md-4 col-lg-4 input-box">
+                  <label for="month">Month:</label>
+                  <select class="form-control" id="month" required>
+                      <option>January</option>
+                      <option>February</option>
+                      <option>March</option>
+                      <option>April</option>
+                      <option>May</option>
+                      <option>June</option>
+                      <option>July</option>
+                      <option>August</option>
+                      <option>September</option>
+                      <option>October</option>
+                      <option>November</option>
+                      <option>December</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-4 col-lg-4 input-box"">
+                  <label for="financial_year">Current Year:</label>
+                  <select class="form-control" id="financial_year" required>
+                  </select>
+              </div>
+          <!-- <div class="col-lg-8 col-md-8" id="cap_div">
+            <label for="txtInput">Captcha:</label>
+            <div>
+              <div id="captcha"></div>
+              <p>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="refresh"
+                  onclick="createCaptcha();"
+                >
+                  refresh
+                </button>
+              </p>
+              <input
+                type="text"
+                id="txtInput"
+                class="form-control"
+                placeholder="e.g. Qh2Tc3"
+                required
+              />
+            </div>
+          </div> -->
+          <div class="form-group" style="margin-top: 2%;">
+            <button
+              type="submit"
+              id="submit_insert"
+              class="btn btn-success btn-lg margin-left-two"
+            >
+              Confirm
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="update_op">
+        <div class="header">
+          <h3 class="bolder">Update Opening Balance</h3>
+        </div>
+        <form
+          name="opening_balance_update"
+          id="opening_balance_update-form"
+          class="justify-content-center"
+          method="POST"
+        >
+          <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="password">Old Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="password" required>
+                </div>  -->
+                <div class="form-group col-md-4 col-lg-4 input-box ">
+                    <label for="amount_up">Opening Balance Amount(Rs):</label>
+                    <input type="text" class="form-control" id="opening_balance_update_amount" placeholder="506044" required>
+                </div>
+                <div class="form-group col-md-4 col-lg-4 input-box">
+                  <label for="month">Month:</label>
+                  <select class="form-control" id="month_update" required>
+                      <option>January</option>
+                      <option>February</option>
+                      <option>March</option>
+                      <option>April</option>
+                      <option>May</option>
+                      <option>June</option>
+                      <option>July</option>
+                      <option>August</option>
+                      <option>September</option>
+                      <option>October</option>
+                      <option>November</option>
+                      <option>December</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-4 col-lg-4 input-box"">
+                  <label for="financial_year_up">Current Year:</label>
+                  <select class="form-control" id="financial_year_up" required>
+                  </select>
+              </div>
+          
+          <div class="form-group" style="margin-top: 2%;">
+            <button
+              type="submit"
+              id="submit_update"
+              class="btn btn-success btn-lg margin-left-two"
+            >
+              Confirm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <%- include ('../partials/footer') -%>
+</html>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#insert_op').hide();
+   $('#update_op').hide();
+
+
+   
+
+   // createCaptcha();
+   $("#btn-insert").click(function (e) {
+    $('#insert_op').show();
+    $('#update_op').hide();
+
+
+    $("#submit_insert").click(function (e) {
+      e.preventDefault();
+      var opening_balance = document.getElementById("opening_balance_insert_amount").value;
+      var month=document.getElementById("month").value;
+      var financial_year= document.getElementById("financial_year").value;
+      var url="/insert_opening_balance";
+      $.post(url,{financial_year:financial_year,month:month,opening_balance:opening_balance}).done(function(data){
+                if(data=="Successful"){
+                  swal({
+                                title: "Successfully Inserted Opening balance ",
+                                text: "",
+                                icon: "success",
+                                }).then(function(){
+                                    window.location = '/';
+                                }); 
+                }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+
+  });
+});
+$("#btn-update").click(function (e) {
+    $('#insert_op').hide();
+    $('#update_op').show();
+
+
+  $("#submit_update").click(function (e) {
+      e.preventDefault();
+      var opening_balance = document.getElementById("opening_balance_update_amount").value;
+      var month=document.getElementById("month_update").value;
+      var financial_year= document.getElementById("financial_year_up").value;
+      var url="/update_opening_balance";
+      $.post(url,{financial_year:financial_year,month:month,opening_balance:opening_balance}).done(function(data){
+                if(data=="Successful"){
+                  swal({
+                                title: "Successfully Updated Opening balance ",
+                                text: "",
+                                icon: "success",
+                                }).then(function(){
+                                    window.location = '/';
+                                }); 
+                }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+
+  });
+});
+$("#financial_year").ready(function() {
+        //Reference the DropDownList.
+        var ddlYears = document.getElementById("financial_year");
+     //   var ddlYears1 = document.getElementById("financial_year_view");
+        var ddlYears2 = document.getElementById("financial_year_up");
+        //Determine the Current Year.
+        var currentYear = (new Date()).getFullYear();
+        lastyears =currentYear -10;
+        //Loop and add the Year values to DropDownList.
+        for (var i = currentYear; i>=lastyears; i--) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = ((i));
+            option.value = ((i));
+
+            ddlYears.append(option);
+
+        }
+        for (var i = currentYear; i>=lastyears; i--) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = ((i));
+            option.value = ((i));
+
+            ddlYears2.append(option);
+
+        }
+  
+    });
+});
+
+</script>

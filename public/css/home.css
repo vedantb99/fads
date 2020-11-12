@@ -1,0 +1,69 @@
+body{
+    font-family: 'Roboto',sans-serif;
+    /* background-color:#D3D3D3;	 */
+   /* height: 100vh; */
+   background-color:#F2F8F9;
+    /* background-size:cover; */
+}
+
+h2,h5,h4,h3{
+  font-family:"SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  font-weight: 600;
+  /* color:  #ff6600; */
+
+}
+.dropdown-menu{
+  background:#D6E5F4;
+}
+/* h3{
+  color:#ffffff;
+  font-weight: 500;
+  font-family:'Roboto';
+} */
+/* 
+.footer{
+  background:#0E4D92;
+} */
+
+.date-text{
+  /* background-color:rgb(255,7,110); */
+}
+
+.font{
+  font-size: large;
+}
+/* .row{
+  height:18rem;
+} */
+
+/* .container{
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+} */
+.mb-2 {
+  margin-bottom: ($spacer * .25) !important;
+}
+ .card-body{
+  background:#D6E5F4;
+}
+nav {
+  padding: 5px !important;
+  background:#0E4D92;
+}
+
+nav a{
+    color: #fff;
+    font-size: 0.9em;
+    /* font-weight: 600; */
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.white-font{
+  color:white;
+  }
+  .card{
+    background:#0E4D92;
+  }
+  .card-text{
+    font-weight: 700;
+  }

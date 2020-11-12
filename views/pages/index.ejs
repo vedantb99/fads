@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+
+    <title>Cash Section 4408</title>
+    <style>
+      canvas {
+          background-color:white;
+      }
+  </style>
+  </head>
+  <link href="/CSS/login.css" rel="stylesheet" />
+
+  <body onload="createCaptcha()">
+    <%- include ('../partials/header') -%>
+
+    <div class="container">
+      <div class="modal-dialog text-center">
+        <div class="col-sm-9 main-section">
+          <div class="modal-content">
+            <!-- <div class="col-12 user-img">
+
+            </div> -->
+            <div class="col-md-12 text-center padding-bottom">
+              <img
+                src="images/emblem.png"
+                style="width: 100px; height: 100px"
+              />
+              <h2>User Login</h2>
+            </div>
+            <div class="col-12 form-input">
+              <form id="login-form" name="login-form" method="POST">
+                <div class="form-group">
+                  <input
+                    type="username"
+                    id="username"
+                    class="form-control"
+                    placeholder="Enter Username"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    required=""
+                  /><small id="emailHelp" class="form-text text-muted"
+                    >Never share your password with anyone.</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="txtInput" style="color:white;font-size: 30px;">Captcha:</label>
+                  <div>
+                    <div id="captcha" style="color:white"></div>
+                    <p>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="refresh"
+                        onclick="createCaptcha();"
+                        style="margin-left: 90px;"
+                      >
+                        refresh
+                      </button>
+                    </p>
+                    <input
+                      type="text"
+                      id="txtInput"
+                      class="form-control"
+                      placeholder="e.g. Qh2Tc3"
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" id="submit1" class="btn btn-success">
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <%- include ('../partials/footer') -%>
+</html>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#submit1").click(function (e) {
+      // alert(result);
+      e.preventDefault();
+
+      $.getJSON("https://jsonip.com?callback=?", function (data1) {
+        var user_ip = data1.ip;
+        var reg_dt = new Date();
+        let username = $("#username").val();
+        let password = $("#password").val();
+        let string2 = $("#txtInput").val();
+        var url = "/submit_login";
+        if (username !== "" && password !== "" && string2!=="") {
+          if(string2==code){
+          $.post(url, {
+            username: username,
+            password: password,
+            reg_dt: reg_dt,
+            user_ip: user_ip,
+          }).done(function (data) {
+            if (data == "Successful") {
+              swal({
+                title: "Successfully Logged In",
+                text: "",
+                icon: "success",
+              }).then(function () {
+                window.location = "/home";
+              });
+
+              document.getElementById("login-form").reset();
+            } else if (data == "Successful1") {
+              swal({
+                title: "Successfully Logged In",
+                text: "",
+                icon: "success",
+              }).then(function () {
+                window.location = "/changepassword";
+              });
+            } else {
+              swal({
+                title: "Login Failed",
+                text: data,
+                icon: "error",
+              });
+              document.getElementById("login-form").reset();
+            }
+          });}else{
+            createCaptcha()
+            swal({
+            title: "Captcha Does not Match",
+            text: "",
+            icon: "error",
+          });
+          }
+        } else {
+          createCaptcha()
+          swal({
+            title: "Fields Cannot Be Empty",
+            text: "",
+            icon: "error",
+          });
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+
+    <title>Change Password</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div
+      class="container contentbox"
+    >
+        <h3 class="bolder form-title padding-title">Change Password For User</h3>
+
+        <form
+          name="changePassword-form"
+          id="changePassword-form"
+          class="justify-content-center"
+          method="POST"
+        >
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="user">Enter User Email-Id:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="user"
+              placeholder="user"
+              required
+            />
+          </div>
+          <div class="form-group col-md-8 col-lg-8">
+            <label for="password">Enter Admin Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="password"
+              required
+            />
+          </div>
+          <!-- <div class="form-group col-md-8 col-lg-8">
+                <label for="re-password">Re-Password:</label>
+                <input type="password" class="form-control" id="re-password" placeholder="password" required>  
+            </div> -->
+          <div class="col-lg-8 col-md-8" id="cap_div">
+            <label for="txtInput">Captcha:</label>
+            <div>
+              <div id="captcha"></div>
+              <p>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  id="refresh"
+                  onclick="createCaptcha();"
+                >
+                  refresh
+                </button>
+              </p>
+              <input
+                type="text"
+                id="txtInput"
+                class="form-control"
+                placeholder="e.g. Qh2Tc3"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 2%">
+            <button
+              type="submit"
+              id="confirm"
+              class="btn btn-success btn-lg margin-left-two"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+    </div>
+  </body>
+  <%- include ('../partials/footer') -%>
+</html>
+<script type="text/javascript">
+  //######################################Need editing in script####################################
+  $(document).ready(function () {
+    createCaptcha();
+    $("#confirm").click(function (e) {
+      e.preventDefault();
+      let user = $("#user").val();
+      let password = $("#password").val();
+      let string2 = $("#txtInput").val();
+      //   let repassword = $("#re-password").val();
+      var url = "/forget_pass";
+      //   if (password !== "" && repassword !== "" && newPassword !== "") {
+      // if (
+      //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(
+      //     newPassword
+      //   ) == true
+      // ) {
+      //   if (newPassword == repassword) {
+        if(string2==code){
+      $.post(url, { user: user, password: password }).done(function (data) {
+        if (data == "Successful") {
+          swal({
+            title: "Password Change",
+            text: data,
+            icon: "success",
+          });
+          //   .then(function () {
+          //     window.location = "/home";
+          //   });
+          document.getElementById("changePassword-form").reset();
+        } else {
+          swal({
+            title: "Password Change",
+            text: data,
+            icon: "error",
+          });
+          e.preventDefault();
+          document.getElementById("changePassword-form").reset();
+          createCaptcha();
+        }
+      });}else{
+        createCaptcha()
+          swal({
+            title: "Captcha Does Not Match",
+            text: "",
+            icon: "error",
+          });
+      }
+      //   } else {
+      //     swal({
+      //       title: "Password Don't Match",
+      //       text: "",
+      //       icon: "error",
+      //     });
+      //     $("#Newpassword").val("");
+      //     $("#re-password").val("");
+      //     createCaptcha();
+      //   }
+      // } else {
+      //   swal({
+      //     title: "Password Invalid",
+      //     text:
+      //       "Your password must contain atleast one uppercase, one lowercase, one numeric, one special character and should have minimum 8 characters ",
+      //     icon: "error",
+      //   });
+      //   $("#newPassword").val("");
+      //   $("#re-password").val("");
+      //   createCaptcha();
+      // }
+      //   } else {
+      //     swal({
+      //       title: "Fields Cannot Be Empty",
+      //       text: "",
+      //       icon: "error",
+      //     });
+      //     createCaptcha();
+      //   }
+    });
+  });
+</script>

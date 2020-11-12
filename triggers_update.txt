@@ -1,0 +1,176 @@
+SELECT * FROM `pds-nic`.gras;
+
+
+-- Insert Gras 
+ delimiter //
+create TRIGGER gras_new
+AFTER INSERT ON approved_gras
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET gras_total = gras_total + NEW.amount,
+closing_bal = closing_bal + NEW.amount
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.insert_dt) AND cash_book_total_val.financial_year=Year(NEW.insert_dt));
+
+drop trigger gras_new
+
+ -- Insert Remittance
+ delimiter //
+create TRIGGER insert_remittance
+AFTER INSERT ON approved_remittance
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + NEW.amount,
+closing_bal = closing_bal + NEW.amount
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.insert_dt) AND cash_book_total_val.financial_year=Year(NEW.insert_dt));
+  Drop trigger insert_remittance;
+  
+-- GRAS UPDATE 
+delimiter #
+create trigger up_gras
+before update on approved_gras
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET 
+closing_bal = closing_bal - @val,
+gras_total = gras_total  - @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET 
+closing_bal = closing_bal + @val,
+gras_total = gras_total + @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+end if;
+ drop trigger up_gras 
+
+-- Remittance UPDATE 
+delimiter #
+create trigger up_remittance
+before update on approved_remittance
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount - @val,
+closing_bal = closing_bal - @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + @val,
+closing_bal = closing_bal + @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+end if;
+drop trigger up_remittance;
+ 
+ -- Delete Gras
+ delimiter #
+create TRIGGER delete_gras
+AFTER delete ON approved_gras
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET gras_total = gras_total - old.amount,
+closing_bal = closing_bal - old.amount
+WHERE (cash_book_total_val.month = old.month AND cash_book_total_val.financial_year=old.financial_year);
+  Drop trigger delete_gras;
+ 
+  -- Delete remittance
+ delimiter #
+create TRIGGER delete_rem
+AFTER delete ON approved_remittance
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET gras_total = total_receipt_amount - old.amount,
+closing_bal = closing_bal - old.amount
+WHERE (cash_book_total_val.month = old.month AND cash_book_total_val.financial_year=old.financial_year);
+  Drop trigger delete_rem;
+ 
+ 
+ 
+ 
+ delete from approved_gras where gras_receipt_no="ass"
+
+ show triggers;
+  select amount from approved_gras where month='May' and (financial_year='2019-2020' and gras_receipt_no='asadwd');
+
+ update approved_gras set amount=100, update_dt='2020-06-05 09:09:48' where gras_receipt_no='assscc';
+insert into approved_gras(gras_receipt_no,month,financial_year,major_head,scheme,district,amount,insert_dt) values ('assscc','May','2019-2020','4408','4408-1','thane','100','2020-05-05 09:09:48');
+
+SELECT * FROM `pds-nic`.acknowledgement;
+
+-- Insert Ack
+create TRIGGER insert_ack
+AFTER INSERT ON approved_acknowledgement
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure + NEW.amount,
+closing_bal = closing_bal - NEW.amount
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.insert_dt) AND cash_book_total_val.financial_year=Year(NEW.insert_dt));
+  Drop trigger insert_ack;
+  
+-- ack UPDATE 
+delimiter #
+create trigger up_ack
+before update on approved_acknowledgement
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure - @val,
+closing_bal = closing_bal + @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure + @val,
+closing_bal = closing_bal - @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+end if;
+drop trigger up_ack;
+
+ delimiter #
+create TRIGGER delete_ack
+AFTER delete ON approved_acknowledgement
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET gras_total = total_receipt_amount - old.amount,
+closing_bal = closing_bal + old.amount
+WHERE (cash_book_total_val.month = old.month AND cash_book_total_val.financial_year=old.financial_year);
+  Drop trigger delete_ack;
+
+-- Other_receipts Insert
+ delimiter //
+create TRIGGER insert_other_receipts
+AFTER INSERT ON approved_other_receipts
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + NEW.amount,
+closing_bal = closing_bal + NEW.amount
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.insert_dt) AND cash_book_total_val.financial_year=Year(NEW.insert_dt));
+  Drop trigger insert_remittance;
+  
+-- Other_receipts update
+  delimiter #
+create trigger up_other_receipts
+before update on approved_other_receipts
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount - @val,
+closing_bal = closing_bal - @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + @val,
+closing_bal = closing_bal + @val
+WHERE (cash_book_total_val.month = MONTHNAME(NEW.update_dt) AND cash_book_total_val.financial_year=Year(NEW.update_dt));
+end if;

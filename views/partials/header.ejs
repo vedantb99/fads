@@ -1,0 +1,74 @@
+
+  <link href="/CSS/home.css" rel="stylesheet"/>
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark"style="font-size:large;">
+    <% if (session) {%>
+		<a class="navbar-brand margin-left brand-logo" href="/home">
+			<img id="logo"src="images/emblem.png" class="img-fluid" width="60px" alt="State Emblem of India">&nbsp;
+			<span class="bolder">FADS</span>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav ml-auto w-100 justify-content-end margin-right">
+      
+      <li class="nav-item">
+        <a class="nav-link" id="home" href="home">Home</a>
+      </li>
+      <li class="nav-item">
+        <div class="dropdown">
+          <a type="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            Visit Page
+          </a>
+          <div class="dropdown-menu">
+            <% if(user_type=="Admin") {%>
+              <a class="dropdown-item" href="/register">register new user</a>
+              <a class="dropdown-item" href="/forgetpass">forgetpass</a>
+              <a class="dropdown-item" href="/account_status">Account Status</a>
+              <a class="dropdown-item" href="/adminTables">adminTables</a>
+              <!-- <a class="dropdown-item" href="/op_balance">Opening Balance</a> -->
+              <a class="dropdown-item" href="/deleted_records">Deleted Records</a>
+
+
+              <% }else if (user_type=="ABC") {%>
+              <a class="dropdown-item" href="/gras">gras</a>
+              <a class="dropdown-item" href="/remittance">remittance</a>
+              <a class="dropdown-item" href="/other_receipts">Other Receipts</a>
+
+              <a class="dropdown-item" href="/acknowledge">Expenditure</a>
+              <a class="dropdown-item" href="/cashbook">cashbook</a>
+              <!-- <a class="dropdown-item" href="/approval">approval</a> -->
+              <a class="dropdown-item" href="/delete">delete</a>
+              <% }else{%>
+              <a class="dropdown-item" href="/gras">gras</a>
+              <a class="dropdown-item" href="/remittance">remittance</a>
+              <!-- <a class="dropdown-item" href="/acknowledge">acknowledge</a> -->
+              <a class="dropdown-item" href="/rejected">rejected</a>
+              <% }%>
+          </div>
+        </div> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="logout" href="logout">Logout</a>
+      </li>
+      <% }else{%>
+        <a class="navbar-brand margin-left brand-logo" href="/">
+          <img id="logo"src="images/emblem.png" class="img-fluid" width="60px" alt="State Emblem of India">&nbsp;
+          <span class="lighter">FADS</span> <span class="bold">Cash Section 4408</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end margin-right">
+      <li class="nav-item">
+        <a class="nav-link" id="login" href="/">Login</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" id="register" id="register" href="register">Register</a>
+      </li> -->
+      <% }%>
+    </ul>
+	</div>
+</nav>

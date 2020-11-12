@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/CSS/rejected.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+    />
+    <%- include ('../partials/links') -%>
+
+    <title>Account Status</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div class="container contentbox">
+      <h3 class="bolder form-title padding-title">Account Status</h3>
+      <table
+        id="user_table"
+        class="table table-striped table-bordered"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <!--<th>Serial no.</th>-->
+            <th>User Name</th>
+            <th>User Type</th>
+            <th>Status</th>
+            <!-- <th>Change Status</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!--<td>232</td>-->
+            <td>Ajay</td>
+            <td>FADS</td>
+            <td>Active</td>
+            <!-- <td><label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label></td> -->
+          </tr>
+        </tbody>
+      </table>
+      <br /><br />
+      <div class="alert alert-info font-weight-bold" role="alert">
+        Select username from the table above and toggle switch to change status:
+      </div>
+      <input
+        type="text"
+        class="input-box"
+        id="change_status_name"
+        placeholder="e.g. Senior"
+        required
+      />
+      <div id="activate">
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="status"
+              value="activate"
+              id="activate"
+              required
+              checked
+            />Activate
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="status"
+              value="deactivate"
+              id="deactivate"
+              required
+            />Deactivate
+          </label>
+        </div>
+      </div>
+      <button type="button" id="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </body>
+  <%- include ('../partials/footer') -%>
+
+</html>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    //fetch username and status for display
+    var t = $("#user_table").DataTable();
+    t.clear().draw();
+    var url = "/get_data";
+    var tablename = "register";
+    var data = "username,confirmed,user_type";
+    $.post(url, { tablename: tablename, data: data }).done(function (data) {
+      if (data) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].user_type != "Admin") {
+            if (data[i].confirmed == "2")
+              t.row
+                .add([data[i].username, data[i].user_type, "Active"])
+                .draw(false);
+            else
+              t.row
+                .add([data[i].username, data[i].user_type, "Not Active"])
+                .draw(false);
+          }
+        }
+      } else {
+        console.log("no data received");
+      }
+    });
+
+    // functionality for changing status
+    $("#submit").click(function (e) {
+      var v = $("input[name='status']:checked").val();
+
+      if (v == "activate") var status = 2;
+      else var status = 3;
+      var user_name = document.getElementById("change_status_name").value;
+      //console.log(status);
+      var url = "/active_deactive";
+      $.post(url, { username: user_name, status: status }).done(function (
+        data
+      ) {
+        if (data == "Successful") {
+          swal({
+            title: "Account Status changed successfully",
+            text: data,
+            icon: "success",
+          }).then(function () {
+            window.location = "/account_status";
+          });
+        } else {
+          swal({
+            title: "Account Status change",
+            text: data,
+            icon: "error",
+          });
+          e.preventDefault();
+        }
+      });
+    });
+  });
+</script>

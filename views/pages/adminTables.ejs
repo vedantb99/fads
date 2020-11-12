@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+    <link href="/CSS/remittance.css" rel="stylesheet"/>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+    />
+    <title>Admin-tables</title>
+    <%- include ('../partials/header') -%>
+  </head>
+  <body>
+    <div
+      class=" container  contentbox"
+    >
+        <h3 class="bolder form-title padding-title">Admin Tables</h3>
+      <div
+        class="btn-group btn-group-lg flex-wrap flex-wrap"
+        role="group"
+        aria-label="Basic example"
+      >
+        <button type="button" id="btn-budget_code" class="btn btn-info datatables-button-group">
+          CRC Code
+        </button>
+        <button type="button" id="btn-district" class="btn btn-info datatables-button-group">
+          District
+        </button>
+        <button type="button" id="btn-desk_no" class="btn btn-info datatables-button-group">
+          Desk Number
+        </button>
+        <button type="button" id="btn-user" class="btn btn-info datatables-button-group">
+          User type
+        </button>
+      </div>
+      <br /><br />
+      <form
+        name="form"
+        id="admin-form"
+        class="justify-content-center"
+        method="POST"
+      >
+        <div class="form-group col-md-8 col-lg-8 pad-top">
+          <table
+            id="master_table"
+            class="table table-striped table-bordered"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <!--<th>Serial no.</th>-->
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!--<td>232</td>-->
+                <td>Rice</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!--Changes to Major Head-->
+        <div id="budget_code">
+          <div class="form-group col-md-8 col-lg-8 pad-top">
+            <table
+              id="budget_table"
+              class="table table-striped table-bordered"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>CRC code</th>
+                  <th>CRC Name</th>
+            
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Rice</td>
+                  <td>Rice</td>
+                
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group col-md-8 col-lg-8 pad-top">
+            <h5 class="bolder">Budget Code:</h5>
+          </div>
+
+          <div
+            class="btn-group btn-group-lg flex-wrap"
+            role="group"
+            aria-label="Major Head Operation"
+          >
+            <button type="button" id="btn-insert-head" class="btn btn-info">
+              Insert new Budget Code
+            </button>
+            <button type="button" id="btn-delete-head" class="btn btn-info">
+              Delete Budget Code
+            </button>
+          </div>
+          <br /><br />
+
+            <div class="form-group pad-top">
+              <div id="insert_budget_code">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Fill in all the fields
+                </div>
+                 
+                <label for="major_head_new">Major Head:</label>
+                <input type="text" class="form-control input-box" id="major_head_new" placeholder="e.g. 4048" required/>                  
+                <label for="major_head_name_new" >Major Head Name:</label>
+                <input type="text" class="form-control input-box" id="major_head_name_new" placeholder="e.g. Capital Outlay of food" required/>
+                <label for="sub_major_head_new">Sub-Major Head:</label>
+                <input type="text" class="form-control input-box" id="sub_major_head_new" placeholder="e.g. 01" required/>
+                <label for="sub_major_head_name_new">Sub-Major Head Name:</label>
+                <input type="text" class="form-control input-box" id="sub_major_head_name_new" placeholder="e.g. Food" required/>
+                <label for="minor_head_new">Minor Head:</label>
+                <input type="text" class="form-control input-box" id="minor_head_new" placeholder="e.g. 101" required/>
+                <label for="minor_head_name_new">Minor Head Name:</label>
+                <input type="text" class="form-control input-box" id="minor_head_name_new" placeholder="e.g. Procurement and Supply" required/>
+                <label for="sub_minor_head_new">Sub Minor Head:</label>
+                <input type="text" class="form-control input-box" id="sub_minor_head_new" placeholder="e.g. 01" required/>
+                <label for="sub_minor_head_name_new">Sub Minor Head Name:</label>
+                <input type="text" class="form-control input-box" id="sub_minor_head_name_new" placeholder="e.g. Mumbai City cost of purchase" required/>
+                <label for="group_head_new">Group Head:</label>
+                <input type="text" class="form-control input-box" id="group_head_new" placeholder="e.g. 02" required/>
+                <label for="group_head_name_new">Group Head Name:</label>
+                <input type="text" class="form-control input-box" id="group_head_name_new" placeholder="e.g. Procurement Distribution and Price control" required/>
+                <label for="detail_head_new">Detail Head:</label>
+                <input type="text" class="form-control input-box" id="detail_head_new" placeholder="e.g. 21" required/>
+                <label for="detail_head_name_new">Detail Head Name:</label>
+                <input type="text" class="form-control input-box" id="detail_head_name_new" placeholder="e.g. Supplies and Material" required/>
+                <label for="demand_number_new">Demand Number:</label>
+                <input type="text" class="form-control input-box" id="demand_number_new" placeholder="e.g. M-4" required/>
+                <label for="budget_code_new">Budget Code(CRC):</label>
+                <input type="text" class="form-control input-box" id="budget_code_new" placeholder="e.g. 44080077" required/>
+                <label for="budget_code_name_new">Budget Code Name/Scheme Name:</label>
+                <input type="text" class="form-control input-box" id="budget_code_name_new" placeholder="e.g. Mumbai City cost of purchase" required/>
+
+
+              </div>
+              <div id="delete_budget_code">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Select from the table above to delete:
+                </div>
+                <input
+                  type="text"
+                  class="form-control input-box"
+                  id="budget_code_delete"
+                  placeholder="e.g. Rice"
+                  required
+                />
+              </div>
+            
+            <br />
+          </div>
+          <br /><br />
+        </div>
+
+     
+        <!--Changes to District-->
+        <div id="district">
+          <div class="form-group col-md-8 col-lg-8">
+            <h6 class="bolder">District:</h6>
+          </div>
+
+          <div
+            class="btn-group btn-group-lg flex-wrap"
+            role="group"
+            aria-label="District Operation"
+          >
+            <button type="button" id="btn-insert-district" class="btn btn-info">
+              Insert new District
+            </button>
+            <button type="button" id="btn-delete-district" class="btn btn-info">
+              Delete District
+            </button>
+          </div>
+          <br /><br />
+
+            <div class="form-group col-md-6 col-lg-8 pad-top">
+              <div id="insert_district">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Insert new District
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="district_new"
+                  placeholder="e.g. Raigad"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group col-md-6 col-lg-8 pad-top">
+              <div id="delete_district">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Select from the table above to delete:
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="district_delete"
+                  placeholder="e.g. Thane"
+                  required
+                />
+              </div>
+            </div>
+          <br /><br />
+        </div>
+
+        <!-- Changes to Desk Number-->
+        <div id="desk_no">
+          <div class="form-group col-md-8 col-lg-8">
+            <h6 class="bolder">Desk Number:</h6>
+          </div>
+
+          <div
+            class="btn-group btn-group-lg flex-wrap"
+            role="group"
+            aria-label="Desk Number Operation"
+          >
+            <button type="button" id="btn-insert-desk" class="btn btn-info">
+              Insert new Desk
+            </button>
+            <button type="button" id="btn-delete-desk" class="btn btn-info">
+              Delete Desk
+            </button>
+          </div>
+          <br /><br />
+
+            <div class="form-group col-md-6 col-lg-8 pad-top">
+              <div id="insert_desk">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Insert new Desk Number
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="desk_new"
+                  placeholder="e.g. 19"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+              <div id="delete_desk">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Select from the table above to delete:
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="desk_delete"
+                  placeholder="e.g. 23"
+                  required
+                />
+              </div>
+            </div>
+          <br /><br />
+        </div>
+
+        <!--Changes to  User Type-->
+        <div id="user_type">
+          <div class="form-group col-md-8 col-lg-8">
+            <h6 class="bolder">User type:</h6>
+          </div>
+
+          <div
+            class="btn-group btn-group-lg flex-wrap"
+            role="group"
+            aria-label="User type Operation"
+          >
+            <button type="button" id="btn-insert-user" class="btn btn-info">
+              Insert new User
+            </button>
+            <button type="button" id="btn-delete-user" class="btn btn-info">
+              Delete User
+            </button>
+          </div>
+          <br /><br />
+
+            <div class="form-group col-md-6 col-lg-8 pad-top">
+              <div id="insert_user">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Insert new Desk Number
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="user_new"
+                  placeholder="e.g. Sr. Acocuntant"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group col-md-8 col-lg-8">
+              <div id="delete_user">
+                <div class="alert alert-info font-weight-bold" role="alert">
+                  Select from the table above to delete:
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="user_delete"
+                  placeholder="e.g. DDO"
+                  required
+                />
+              </div>
+            </div>
+          <br /><br />
+        </div>
+        <button
+          type="submit"
+          id="btn-submit_tables"
+          class="btn btn-success btn-lg"
+        >
+          Submit changes to Database</button
+        ><br /><br />
+      </form>
+    </div>
+    <%- include ('../partials/footer') -%>
+  </body>
+</html>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+   // $("#master_table").DataTable();
+    //Major Head
+    $("#budget_code").hide();
+    $("#master_table").hide();
+    $("#budget_table").hide();
+
+    $("#btn-submit_tables").hide();
+    $("#insert_budget_code").hide();
+    $("#delete_budget_code").hide();
+
+    $("#btn-budget_code").click(function () {
+      $("#btn-submit_tables").removeClass("user_del");
+      $("#btn-submit_tables").removeClass("user");
+
+      $("#btn-submit_tables").removeClass("major_del");
+      $("#btn-submit_tables").removeClass("major");
+
+      $("#btn-submit_tables").removeClass("district_del");
+      $("#btn-submit_tables").removeClass("district");
+
+      $("#btn-submit_tables").removeClass("desk_del");
+      $("#btn-submit_tables").removeClass("desk");
+    
+
+      //inside major head div
+      $("#budget_code").show();
+      $("#budget_table").show();
+      $("#district").hide();
+      $("#desk_no").hide();
+      $("#user_type").hide();
+      $("#btn-submit_tables").show();
+      var dataTable2 = $("#budget_table").DataTable();
+      dataTable2.clear().draw();
+
+      var url = "/get_budget_data";
+      var tablename = "budget_code";
+
+      $.post(url, { tablename: tablename }).done(function (data) {
+        var counter = 0;
+        //$("#master_table").empty();
+        if (data.length < 1) {
+          // var appendstr = "<tr><td colspan=9>No Data Found!</td></tr>";
+        } else {
+          //  var appendstr ="<thead><tr><th>Name</th></tr></thead><tbody>";
+          for (var i = 0; i < data.length; i++) {
+            dataTable2.row.add([ data[i].budget_code,
+            data[i].budget_name
+            //   data[i].major_head,
+            // data[i].major_head_name,
+            // data[i].sub_major_head,
+            // data[i].sub_major_head_name,
+            // data[i].minor_head,
+            // data[i].minor_head_name,
+            // data[i].sub_minor_head,
+            // data[i].sub_minor_head_name,
+            // data[i].group_head,
+            // data[i].group_head_name,
+            // data[i].detail_head,
+            // data[i].detail_head_name,
+            // data[i].demand_number
+           ]).draw(false);
+
+          }
+          //console.log(dataset);
+
+          
+        }
+      });
+
+      $("#btn-insert-head").click(function () {
+        $("#btn-submit_tables").addClass("major");
+        $("#btn-submit_tables").removeClass("major_del");
+
+        $("#insert_budget_code").show();
+        $("#delete_budget_code").hide();
+      });
+
+      $("#btn-delete-head").click(function () {
+        $("#btn-submit_tables").removeClass("major");
+        $("#btn-submit_tables").addClass("major_del");
+        $("#insert_budget_code").hide();
+        $("#delete_budget_code").show();
+      });
+    });
+
+      
+       
+
+    //District buttons
+    $("#district").hide();
+
+    $("#insert_district").hide();
+    $("#delete_district").hide();
+    $("#submit_district").hide();
+    $("#btn-district").click(function () {
+      $("#btn-submit_tables").removeClass("user_del");
+      $("#btn-submit_tables").removeClass("user");
+
+      $("#btn-submit_tables").removeClass("major_del");
+      $("#btn-submit_tables").removeClass("major");
+
+      $("#btn-submit_tables").removeClass("district_del");
+      $("#btn-submit_tables").removeClass("district");
+
+      $("#btn-submit_tables").removeClass("desk_del");
+      $("#btn-submit_tables").removeClass("desk");
+      var dataTable = $("#master_table").DataTable();
+
+      dataTable.clear().draw();
+
+      //inside district div
+      $("#budget_code").hide();
+      $("#desk_no").hide();
+      $("#user_type").hide();
+      $("#district").show();
+      $("#master_table").show();
+      $("#btn-submit_tables").show();
+
+      var url = "/get_data";
+      var tablename = "district";
+      var data = "district";
+      $.post(url, { tablename: tablename, data: data }).done(function (data) {
+        //     var counter = 0;
+        //    $("#master_table").empty();
+        if (data.length < 1) {
+          //   var appendstr = "<tr><td colspan=9>No Data Found!</td></tr>";
+        } else {
+          var dataset = new Array(data.length);
+          for (var i = 0; i < data.length; i++) {
+            dataset[i] = new Array(1);
+            dataset[i][0] = data[i].district;
+          }
+          console.log(dataset);
+          dataTable.rows.add(dataset).draw(false);
+          //   var appendstr ="<thead><tr><th>Name</th></tr></thead><tbody>";
+
+          //   data.forEach((i) => {
+          //     appendstr += "<tr>";
+          //     appendstr += "<td>" + i.district + "</td>";
+          //     appendstr += "</td></tr>";
+          //     });
+          //     appendstr+="</tbody>"
+
+          // //var appendstr="<thead><tr>  <th>Name</th> </tr></thead> <tbody><tr> <td>Rice</td></tr><tr><td>Wheat</td></tr><tr><td>Pulses</td></tr> </tbody>";
+
+          //   $("#master_table").html(appendstr);
+        }
+      });
+      $("#btn-insert-district").click(function () {
+        $("#insert_district").show();
+        $("#delete_district").hide();
+        $("#btn-submit_tables").addClass("district");
+        $("#btn-submit_tables").removeClass("district_del");
+      });
+      $("#btn-delete-district").click(function () {
+        $("#insert_district").hide();
+        $("#delete_district").show();
+        $("#btn-submit_tables").removeClass("district");
+        $("#btn-submit_tables").addClass("district_del");
+      });
+    });
+
+    //Desk Number buttons
+    $("#desk_no").hide();
+
+    $("#insert_desk").hide();
+    $("#delete_desk").hide();
+    $("#submit_desk").hide();
+
+    $("#btn-desk_no").click(function () {
+      $("#btn-submit_tables").removeClass("user_del");
+      $("#btn-submit_tables").removeClass("user");
+
+      $("#btn-submit_tables").removeClass("major_del");
+      $("#btn-submit_tables").removeClass("major");
+
+      $("#btn-submit_tables").removeClass("district_del");
+      $("#btn-submit_tables").removeClass("district");
+
+      $("#btn-submit_tables").removeClass("desk_del");
+      $("#btn-submit_tables").removeClass("desk");
+      var dataTable = $("#master_table").DataTable();
+      dataTable.clear().draw();
+
+      // inside desk no div
+      $("#desk_no").show();
+      $("#master_table").show();
+      $("#budget_code").hide();
+      $("#district").hide();
+      $("#user_type").hide();
+      $("#btn-submit_tables").show();
+      var url = "/get_data";
+      var tablename = "desk";
+      var data = "desk";
+      $.post(url, { tablename: tablename, data: data }).done(function (data) {
+        //     var counter = 0;
+        //     $("#master_table").empty();
+        if (data.length < 1) {
+          //   var appendstr = "<tr><td colspan=9>No Data Found!</td></tr>";
+        } else {
+          var dataset = new Array(data.length);
+          for (var i = 0; i < data.length; i++) {
+            dataset[i] = new Array(1);
+            dataset[i][0] = data[i].desk;
+          }
+          //console.log(dataset);
+          dataTable.rows.add(dataset).draw(false);
+          //   var appendstr ="<thead><tr><th>Name</th></tr></thead><tbody>";
+
+          //   data.forEach((i) => {
+          //     appendstr += "<tr>";
+          //     appendstr += "<td>" + i.desk + "</td>";
+          //     appendstr += "</td></tr>";
+          //     });
+          //     appendstr+="</tbody>"
+
+          // //var appendstr="<thead><tr>  <th>Name</th> </tr></thead> <tbody><tr> <td>Rice</td></tr><tr><td>Wheat</td></tr><tr><td>Pulses</td></tr> </tbody>";
+
+          //   $("#master_table").html(appendstr);
+        }
+      });
+      $("#btn-insert-desk").click(function () {
+        $("#insert_desk").show();
+        $("#delete_desk").hide();
+        $("#btn-submit_tables").addClass("desk");
+        $("#btn-submit_tables").removeClass("desk_del");
+      });
+      $("#btn-delete-desk").click(function () {
+        $("#insert_desk").hide();
+        $("#delete_desk").show();
+        $("#btn-submit_tables").removeClass("desk");
+        $("#btn-submit_tables").addClass("desk_del");
+      });
+    });
+
+    //User Type Buttons
+    $("#user_type").hide();
+
+    $("#insert_user").hide();
+    $("#delete_user").hide();
+    $("#submit_user").hide();
+    $("#btn-user").click(function () {
+      $("#btn-submit_tables").removeClass("user_del");
+      $("#btn-submit_tables").removeClass("user");
+
+      $("#btn-submit_tables").removeClass("major_del");
+      $("#btn-submit_tables").removeClass("major");
+
+      $("#btn-submit_tables").removeClass("district_del");
+      $("#btn-submit_tables").removeClass("district");
+
+      $("#btn-submit_tables").removeClass("desk_del");
+      $("#btn-submit_tables").removeClass("desk");
+      var dataTable = $("#master_table").DataTable();
+      dataTable.clear().draw();
+
+      //inside user type div
+      $("#user_type").show();
+      $("#master_table").show();
+      $("#budget_code").hide();
+      $("#district").hide();
+      $("#desk_no").hide();
+
+      $("#btn-submit_tables").show();
+
+      var url = "/get_data";
+      var tablename = "user_type";
+      var data = "user_type";
+      $.post(url, { tablename: tablename, data: data }).done(function (data) {
+        //     var counter = 0;
+        //     $("#master_table").empty();
+        if (data.length < 1) {
+          //   var appendstr = "<tr><td colspan=9>No Data Found!</td></tr>";
+        } else {
+          var dataset = new Array(data.length);
+          for (var i = 0; i < data.length; i++) {
+            dataset[i] = new Array(1);
+            dataset[i][0] = data[i].user_type;
+          }
+          console.log(dataset);
+          dataTable.rows.add(dataset).draw(false);
+          //   var appendstr ="<thead><tr><th>Name</th></tr></thead><tbody>";
+
+          //   data.forEach((i) => {
+          //     appendstr += "<tr>";
+          //     appendstr += "<td>" + i.user_type + "</td>";
+          //     appendstr += "</td></tr>";
+          //     });
+          //     appendstr+="</tbody>"
+
+          // //var appendstr="<thead><tr>  <th>Name</th> </tr></thead> <tbody><tr> <td>Rice</td></tr><tr><td>Wheat</td></tr><tr><td>Pulses</td></tr> </tbody>";
+
+          //   $("#master_table").html(appendstr);
+        }
+      });
+
+      $("#btn-insert-user").click(function () {
+        $("#insert_user").show();
+        $("#delete_user").hide();
+        $("#btn-submit_tables").addClass("user");
+        $("#btn-submit_tables").removeClass("user_del");
+      });
+      $("#btn-delete-user").click(function () {
+        $("#insert_user").hide();
+        $("#delete_user").show();
+        $("#btn-submit_tables").removeClass("user");
+        $("#btn-submit_tables").addClass("user_del");
+      });
+    });
+
+    // script for fetching from database
+    $("#btn-submit_tables").click(function (e) {
+      e.preventDefault(); //script for major head
+      var type, data, url, tablename;
+      if ($("#btn-submit_tables").hasClass("major")) {
+        type = "insert";
+        let major_head_new=$("#major_head_new").val();
+        let major_head_name_new=$("#major_head_name_new").val();
+        let sub_major_head_new=$("#sub_major_head_new").val();
+        let sub_major_head_name_new=$("#sub_major_head_name_new").val();
+        let minor_head_new=$("#minor_head_new").val();
+        let minor_head_name_new=$("#minor_head_name_new").val();
+        let sub_minor_head_new=$("#sub_minor_head_new").val();
+        let sub_minor_head_name_new=$("#sub_minor_head_name_new").val();
+        let group_head_new=$("#group_head_new").val();
+        let group_head_name_new=$("#group_head_name_new").val();
+        let detail_head_new=$("#detail_head_new").val();
+        let detail_head_name_new=$("#detail_head_name_new").val();
+        let demand_number_new=$("#demand_number_new").val();
+        let budget_code_new=$("#budget_code_new").val();
+        let budget_code_name_new=$("#budget_code_name_new").val();
+         url="/budget_code_insert";
+        tablename = "budget_code";
+        $.post(url,{major_head_new:major_head_new,major_head_name_new:major_head_name_new,sub_major_head_new:sub_major_head_new, 
+          sub_major_head_name_new:sub_major_head_name_new,minor_head_new:minor_head_new,minor_head_name_new:minor_head_name_new,
+          sub_minor_head_new:sub_minor_head_new,sub_minor_head_name_new:sub_minor_head_name_new,group_head_new:group_head_new,
+          group_head_name_new:group_head_name_new,detail_head_new:detail_head_new,detail_head_name_new:detail_head_name_new,
+          demand_number_new:demand_number_new,budget_code_new:budget_code_new,budget_code_name_new:budget_code_name_new}).done(function(data){
+
+        if (data == "Successful") {
+          swal({
+            title: "Successfull  ",
+            text: "",
+            icon: "success",
+          }).then(function () {
+            window.location = "/adminTables";
+          });
+        } else {
+          swal({
+            title: data,
+            text: "",
+            icon: "error",
+          }).then(function () {
+            window.location = "/adminTables";
+          });
+        }
+      });
+
+      } else{ if ($("#btn-submit_tables").hasClass("major_del")) {
+        type = "delete";
+        data = $("#budget_code_delete").val();
+        tablename = "budget_code";
+      } else if ($("#btn-submit_tables").hasClass("district")) {
+        type = "insert";
+        data = $("#district_new").val();
+        tablename = "district";
+      } else if ($("#btn-submit_tables").hasClass("district_del")) {
+        type = "delete";
+        data = $("#district_delete").val();
+        tablename = "district";
+      } else if ($("#btn-submit_tables").hasClass("desk")) {
+        type = "insert";
+        data = $("#desk_new").val();
+        tablename = "desk";
+      } else if ($("#btn-submit_tables").hasClass("desk_del")) {
+        type = "delete";
+        data = $("#desk_delete").val();
+        tablename = "desk";
+      } else if ($("#btn-submit_tables").hasClass("user")) {
+        type = "insert";
+        data = $("#user_new").val();
+        tablename = "user_type";
+      } else if ($("#btn-submit_tables").hasClass("user_del")) {
+        type = "delete";
+        data = $("#user_delete").val();
+        tablename = "user_type";
+      } else {
+        console.log("error");
+      }
+
+      url = "/admin_data";
+
+      $.post(url, {
+        data: data,
+        type: type,
+        tablename: tablename,
+      }).done(function (data) {
+        if (data == "Successful") {
+          swal({
+            title: "Successfull  ",
+            text: "",
+            icon: "success",
+          }).then(function () {
+            window.location = "/adminTables";
+          });
+        } else {
+          swal({
+            title: data,
+            text: "",
+            icon: "error",
+          }).then(function () {
+            window.location = "/adminTables";
+          });
+        }
+      });
+    }
+  });
+
+  
+  });
+</script>

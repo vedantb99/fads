@@ -1,0 +1,120 @@
+SELECT * FROM `pds-nic`.gras;
+
+
+-- Insert Gras 
+delimiter //
+CREATE TRIGGER gras_new AFTER INSERT ON gras
+FOR EACH ROW BEGIN
+IF EXISTS (SELECT * FROM cash_book_total_val WHERE month=NEW.month and financial_year=NEW.financial_year) THEN
+UPDATE cash_book_total_val
+SET gras_total = gras_total + NEW.amount,
+closing_bal = closing_bal + NEW.amount
+WHERE (month=NEW.month and financial_year=NEW.financial_year);
+ELSE
+insert into cash_book_total_val (month,financial_year,gras_total,closing_bal) 
+values(new.month,new.financial_year,new.amount,new.amount);
+END IF;
+END; 
+//
+delimiter ; 
+drop trigger gras_new
+
+-- Insert Gras 
+-- create TRIGGER insert_gras
+-- AFTER INSERT ON gras
+-- FOR EACH ROW
+-- insert into cash_book_total_val (month,financial_year,gras_total,closing_bal) 
+-- values(new.month,new.financial_year,new.amount,new.amount);
+
+--  Drop trigger insert_gras;
+ 
+ -- Insert Remittance
+create TRIGGER insert_remittance
+AFTER INSERT ON remittance
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + NEW.amount,
+closing_bal = closing_bal + NEW.amount
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+  Drop trigger insert_remittance;
+  
+  -- Insert Ack
+create TRIGGER insert_ack
+AFTER INSERT ON acknowledgement
+FOR EACH ROW
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure - NEW.amount,
+closing_bal = closing_bal - NEW.amount
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+  Drop trigger insert_ack;
+
+-- GRAS UPDATE 
+delimiter #
+create trigger up_gras
+before update on gras
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET 
+closing_bal = closing_bal - @val,
+gras_total = gras_total  - @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET 
+closing_bal = closing_bal + @val,
+gras_total = gras_total + @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+end if;
+ drop trigger up_gras 
+
+-- Remittance UPDATE 
+delimiter #
+create trigger up_remittance
+before update on remittance
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount - @val,
+closing_bal = closing_bal - @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET total_receipt_amount = total_receipt_amount + @val,
+closing_bal = closing_bal + @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+end if;
+drop trigger up_remittance;
+ 
+ -- ack UPDATE 
+delimiter #
+create trigger up_ack
+before update on acknowledgement
+for each row
+if(old.amount>new.amount)
+THEN
+Set @val = old.amount-new.amount;
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure + @val,
+closing_bal = closing_bal + @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+ELSE     
+Set @val = new.amount-old.amount;
+UPDATE cash_book_total_val 
+SET total_expenditure = total_expenditure - @val,
+closing_bal = closing_bal - @val
+WHERE (cash_book_total_val.month = NEW.month AND cash_book_total_val.financial_year=NEW.financial_year);
+end if;
+drop trigger up_ack;
+
+ show triggers;
+  select amount from gras where month='May' and (financial_year='2019-2020' and gras_receipt_no='asadwd');
+
+ update gras set amount=0 where month='May' and (financial_year='2019-2020' and gras_receipt_no='ass');
+insert into gras(gras_receipt_no,month,financial_year,major_head,scheme,district,amount,insert_ip,insert_by,insert_dt) values ('ass','May','2019-2020','4408','4408-1','thane','10','10.5.0.0','previta21','201894dwww');

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include ('../partials/links') -%>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+  />
+    <title>Gras</title>
+    <link href="/CSS/remittance.css" rel="stylesheet"/>
+
+</head>
+<%- include ('../partials/header') -%>
+<div class="container left-space">
+    <h2 class="bolder">GRAS Operations</h2>
+
+
+<div class="btn-group btn-group-lg flex-wrap justify-content-center" role="group" aria-label="Basic example">
+  <button type="button" id="btn-insert" class="btn btn-info">Insert</button>
+  <button type="button" id="btn-view" class="btn btn-info">View</button>
+  <button type="button" id="btn-update" class="btn btn-info">Update</button>
+</div>
+<br><br>
+    <div class=" left-padding"  id="gras_insert">
+        <form name="gras-form" id="gras-form" method="POST">
+            <div class="form-group col-md-12 col-lg-12 align-ct" >
+
+                    <h3 class="bold padding-title form-title">GRAS Insert</h3>
+            </div>
+            <div class="form-group" >
+                <label for="gras_receipt">Gras Receipt Number:</label>
+                <input type="text" class="form-control input-box" id="gras_receipt" placeholder="e.g. MH12345678987M" required>
+            </div>
+            <div class="form-group" >
+                <label for="particular">Particular:</label>
+                <input type="text" class="form-control input-box" id="particular" placeholder="e.g. " required>
+            </div>
+            <div class="form-group" >
+                <label for="date">Date:</label>
+                <input type="date" class="form-control input-box" id="date"  required>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box">
+                <label for="month">Month:</label>
+                <select class="form-control" id="month" required>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box"">
+                <label for="financial_year">Financial Year:</label>
+                <select class="form-control" id="financial_year" required>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label for="type_of_transaction">Type Of Transaction:</label>
+                <input type="text" class="form-control input-box" id="type_of_transaction" placeholder="e.g. " required>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box"">
+                <label for="budget_code">Budget Code:</label>
+                <select class="form-control" id="budget_code"required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div>
+            <!-- <div class="form-group col-md-4 col-lg-4  input-box"">
+                <label for="scheme">Scheme:</label>
+                <select class="form-control" id="scheme" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div> -->
+            <div class="form-group col-md-4 col-lg-4  input-box"">
+                <label for="district">District:</label>
+                <select class="form-control" id="district" required>
+                    <% for(var i=0; i < result2.length; i++) { %>
+                        <option><%= result2[i] %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="amount">Amount(Rs):</label>
+                <input type="text" class="form-control" id="amount" placeholder="506044" required>
+            </div>
+            <p class="input-box text-center">Upload GRAS pdf file:</p>
+
+            <div class="custom-file input-box-file">            
+
+                <input type="file"  id="customFile" accept="application/pdf, application/vnd.ms-excel">
+                <!-- <label class="custom-file-label" for="customFile">Choose file</label> -->
+              </div><br><br>
+            <!-- <div class="bg-secondary col-lg-6 col-md-6" style="margin: 2%;padding: 2%;">
+                <h2 type="text" id="mainCaptcha"></h2>
+                <p><input type="button" id="refresh" onclick="Captcha();"/></p>
+                <input type="text" id="txtInput" class="form-control"/>
+            </div> -->
+            <div class="form-group form-group col-md-4 col-lg-4 input-box">
+                <button type="submit" id="submit_gras"class="btn btn-success btn-lg btn-block" style="margin-left: 2%;">Submit</button>
+                <!-- <a class="float-right" href="/" >Already Have Account?</a> -->
+            </div>
+        </form>
+    </div>
+
+
+
+    <div id="gras_view">
+        <h3 class="bold padding-title form-title">GRAS View</h3>
+        <br>
+        <div class="alert alert-info font-weight-bold" role="alert">Please Insert the search parameters.</div>
+        <br>
+        <div id="display_parameters">
+            <form name="display-gras-form" id="display-gras-form" class="justify-content-center" method="POST">
+         <!---<div id="view_parameters">-->
+            <!-- Month begins here-->
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="month_view">Month:</label>
+                <select class="form-control" id="month_view" required>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div>
+            <!-- Financial Year begins here-->
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="financial_year_view">Financial Year:</label>
+                <select class="form-control" id="financial_year_view" required>
+                </select>
+            </div>
+            <!-- <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="scheme">Scheme:</label>
+                <select class="form-control" id="scheme" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div> -->
+            <div class="form-group">
+                <button type="submit" id="view_gras"class="btn btn-success btn-lg" style="margin-left: 2%;">View</button>
+                <button type="button" id="refresh_gras"class="btn btn-success btn-lg" style="margin-left: 2%;">Refresh</button>
+            </div>
+            </form>
+        </div>
+    
+            <div id="view_success">
+                <table id="grasTable" class="table" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Gras Receipt NO:</th>
+                        <th>Particular</th>
+                        <th>Date</th>
+                        <th>Month</th>
+                        <th>Financial Year</th>
+                        <th>Type Of Transaction</th>
+                        <th>Budget Code</th>
+                        <!-- <th>Scheme</th> -->
+                        <th>District</th>
+                        <th>Amount</th>  
+                        <th>PDF</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gras Receipt NO:</td>
+                        <td>Particular</td>
+                        <td>Date</td>
+                        <td>Month</td>
+                        <td>Financial Year</td>
+                        <td>Type Of Transaction</td>
+                        <td>Budget Code</td>
+                        <!-- <td>Scheme</td> -->
+                        <td>District</td>
+                        <td>Amount</td>  
+                        <td>PDF</td> 
+                    </tr>
+                </tbody>
+                   
+                </table>
+                <!-- <button class="btn btn-primary btn-block" id="print" style="margin-top: 2%;">print</button> -->
+
+        </div>
+    </div>
+  
+   
+       
+    
+
+
+
+
+        <div  id="gras_update">
+            <h3 class="bold padding-title form-title">GRAS Update</h3>
+            <br>
+            <div class="alert alert-info font-weight-bold" role="alert">Please Insert the search parameters.</div>
+            <br>
+            
+            <div id="update_parameters">
+                <form name="check_update_form" id="check_update_form" class="justify-content-center " method="POST">
+                    <div class="form-group col-md-4 col-lg-4 input-box " >
+                        <label for="gras_receipt_check">Gras Receipt Number:</label>
+                        <input type="text" class="form-control" id="gras_receipt_check" placeholder="e.g. MH12345678987M" required>
+                    </div>
+                    <!-- <div class="form-group col-md-4 col-lg-4 input-box ">
+                    <label for="month_up">Month:</label>
+                    <select class="form-control" id="month_up" required>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 col-lg-4 input-box ">
+                    <label for="financial_year_up">Financial Year:</label>
+                    <select class="form-control" id="financial_year_up" required>
+                    </select> 
+                </div>-->
+                <!-- <div class="form-group col-md-4 col-lg-4 input-box ">
+                    <label for="scheme_up">Scheme:</label>
+                    <select class="form-control" id="scheme_up" required>
+                        <% for(var i=0; i < result.length; i++) { %>
+                            <option><%= result[i] %></option>
+                        <% } %>
+                    </select>
+                </div> -->
+                <div class="form-group">
+                    
+                    <button type="submit" id="check_update"class="btn btn-success btn-lg flex-wrap" style="margin-left: 2%;">Check</button>
+                </div>
+                </form>
+            </div>
+
+        <div id="update_success">
+            <small id="disabletxt" class="form-text text-muted" style="text-align: center;">Above Parameters are disabled now</small>
+            <!-- <form name="update_gras_form" id="update_gras_form" class="justify-content-center " method="POST"></form> -->
+            <div class="form-group col-md-4 col-lg-4 input-box " >
+                <label for="gras_receipt_up">Gras Receipt Number:</label>
+                <input type="text" class="form-control" id="gras_receipt_up" placeholder="e.g. MH12345678987M" required>
+            </div>
+            <div class="form-group" >
+                <label for="up_particular">Particular:</label>
+                <input type="text" class="form-control input-box" id="up_particular" placeholder="e.g. " required>
+            </div>
+            <div class="form-group" >
+                <label for="up_date">Date:</label>
+                <input type="date" class="form-control input-box" id="up_date"  required>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="month_up">Month:</label>
+                <select class="form-control" id="month_up" disabled required>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="financial_year_up">Financial Year:</label>
+                <select class="form-control" id="financial_year_up" disabled required>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label for="up_type_of_transaction">Type of Transaction:</label>
+                <input type="text" class="form-control input-box" id="up_type_of_transaction" placeholder="e.g. " required>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="budget_code_up">Budget Code:</label>
+                <select class="form-control" id="budget_code_up"required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div>
+            <!-- <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="scheme_up">Scheme:</label>
+                <select class="form-control" id="scheme_up" required>
+                    <% for(var i=0; i < result.length; i++) { %>
+                        <option><%= result[i] %></option>
+                    <% } %>
+                </select>
+            </div> -->
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="district_up">District:</label>
+                <select class="form-control" id="district_up" required>
+                    <% for(var i=0; i < result2.length; i++) { %>
+                        <option><%= result2[i] %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="amount_up">Amount(Rs):</label>
+                <input type="text" class="form-control" id="amount_up" placeholder="506044" required>
+            </div>
+            <div class="form-group col-md-4 col-lg-4 input-box ">
+                <label for="pdf_up_view">PDF:</label>
+                <p id='pdf_up_view'></p>
+                <!-- <input type="text" class="form-control" id="amount_up" placeholder="506044" required> -->
+                <button id="change_pdf">change_pdf</button>
+                <div id="change_pdf_div">
+                    <input type="file"  id="pdf_up" accept="application/pdf, application/vnd.ms-excel">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="update_gras"class="btn btn-success btn-lg btn-block" style="margin-left: 2%;">Update</button>
+            </div>
+        </div>
+
+
+        </form>
+
+       
+        </div>
+
+</div>
+</body>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+    <%- include ('../partials/footer') -%>
+
+</html>
+<!--Sending Data from UI to Server -->
+<script type="text/javascript">
+$("#financial_year").ready(function() {
+        //Reference the DropDownList.
+        var ddlYears = document.getElementById("financial_year");
+        var ddlYears1 = document.getElementById("financial_year_view");
+        var ddlYears2 = document.getElementById("financial_year_up");
+        //Determine the Current Year.
+        var currentYear = (new Date()).getFullYear();
+        lastyears =currentYear -10;
+        //Loop and add the Year values to DropDownList.
+        for (var i = currentYear; i>=lastyears; i--) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = ((i-1)+"-"+i);
+            option.value = ((i-1)+"-"+i);
+
+            ddlYears.append(option);
+        }
+        for (var i = currentYear; i>=lastyears; i--) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = ((i-1)+"-"+i);
+            option.value = ((i-1)+"-"+i);
+
+            ddlYears1.append(option);
+        }
+        for (var i = currentYear; i>=lastyears; i--) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = ((i-1)+"-"+i);
+            option.value = ((i-1)+"-"+i);
+
+            ddlYears2.append(option);
+        }
+    });
+	$(document).ready(function(){
+        
+        $('#change_pdf_div').hide(); 
+        $('#refresh_gras').hide(); 
+       $('#gras_insert').hide();
+       $('#gras_view').hide();
+       $('#gras_update').hide();
+       $("#view_success").hide();      
+            $("#btn-insert").click(function(){
+            $('#gras_insert').show();
+            $('#gras_view').hide();
+            $('#gras_update').hide();
+            
+            });
+            $("#btn-view").click(function(){
+            $('#gras_view').show();
+            $('#gras_insert').hide();
+            $('#gras_update').hide();
+            $("#view_success").hide();
+            
+            });
+            $("#btn-update").click(function(){
+            $('#gras_update').show();
+            $('#gras_insert').hide();
+            $('#gras_view').hide();
+            $("#update_success").hide(); 
+
+
+            });
+
+    $('#submit_gras').click(function(e){
+            
+            //     $('#gras_view').show();
+            // $("#update_success").show();
+
+			// alert(result);
+            e.preventDefault();
+
+            $.getJSON("https://jsonip.com?callback=?", function(data1) {
+                var user_ip       = data1.ip;
+            var files = $('#customFile').get(0).files;
+            formData = new FormData();
+            if (files.length !== 1) {
+                 alert('Select 1 file to upload.');
+                return false;
+             }
+             else{
+                formData.append('pdf',files[0]);
+             }
+            var reg_dt         = new Date();
+			let gras_receipt  = $("#gras_receipt").val();
+			let month          = $("#month").val();
+			let financial_year = $("#financial_year").val();
+			let budget_code     = $("#budget_code").val();
+			//let scheme         = $("#scheme").val();
+			let district       = $("#district").val();
+            let amount         = $("#amount").val();
+            let particular     = $("#particular").val();
+            let date            = $("#date").val();
+            let type_of_transaction = $("#type_of_transaction").val();
+            var url            = "/submit_gras"
+            // console.log(files);
+            // console.log(formData);
+			if(particular!==""&&date!=="" && type_of_transaction!=="" &&user_ip !== "" && reg_dt !== ""  && gras_receipt !== "" && month !=="" && financial_year !=="" && budget_code_up !==""  && district !=="" && amount !==""){
+                if(/^[0-9a-zA-Z]+$/.test(gras_receipt)==true){
+                    if( /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/.test(amount)==true){
+                        formData.append('particular',particular);    
+                        formData.append('date',date);
+                        formData.append( 'type_of_transaction',type_of_transaction);
+                        formData.append('user_ip',user_ip); 
+                        formData.append('reg_dt',reg_dt); 
+                        formData.append('gras_receipt',gras_receipt); 
+                        formData.append('month',month); 
+                        formData.append('financial_year',financial_year); 
+                        formData.append('budget_code',budget_code); 
+                       // formData.append('scheme',scheme); 
+                        formData.append('district',district); 
+                        formData.append('amount',amount); 
+
+				    $.ajax({type:'POST',url:url,processData: false,contentType: false, data:formData }).done(function(data){
+
+					    if(data == "Successful"){
+                            swal({
+                                title: "Successfull Gras ",
+                                text: "",
+                                icon: "success",
+                                }).then(function(){
+                                    window.location = '/gras';
+                                });
+
+                            document.getElementById("gras-form").reset();
+
+                        }
+                        else{
+                            swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                            document.getElementById("gras-form").reset();
+
+                        }
+                    })
+                    }
+                    else{
+                        swal({
+                                title: "Invaild Gras Amount",
+                                text: "",
+                                icon: "error",
+                                });
+                                $("#amount").val('');
+                    }
+                }
+                else{
+                    swal({
+                                title: "Invaild Gras Receipt",
+                                text: "",
+                                icon: "error",
+                                });
+                                $("#gras_receipt").val('');
+                }
+            }
+            else{
+                swal({
+                                title: "Fields Cannot Be Empty",
+                                text: "",
+                                icon: "error",
+                                });
+            }
+		
+        });  
+    });
+
+    $('#check_update').click(function(e){
+        e.preventDefault();
+        
+            // let month              = $("#month_up").val();
+			// let financial_year     = $("#financial_year_up").val();
+            let gras_receipt_check = $("#gras_receipt_check").val();
+            let url            = '/check_update';
+            $.post(url,{gras_receipt_check:gras_receipt_check}).done(function(data){
+                if(data!="Data Not Found"){
+                   
+                    // console.log(data[0]);
+                    $("#update_success").show();
+                    $('#check_update').hide();
+                    $("#update_parameters").addClass("disable-div");
+                    document.getElementById("amount_up").value = data[0].amount;
+                    document.getElementById("district_up").value = data[0].district;
+                    document.getElementById("budget_code_up").value = data[0].budget_code;
+                    document.getElementById("gras_receipt_up").value = data[0].gras_receipt_no;
+                    //document.getElementById('scheme_up').value = data[0].scheme;
+                    document.getElementById('financial_year_up').value = data[0].financial_year;
+                    document.getElementById('month_up').value = data[0].month;
+                    document.getElementById('up_particular').value = data[0].particular;
+                    document.getElementById('up_date').value = data[0].date;
+                    document.getElementById('up_type_of_transaction').value = data[0].type_of_transaction;
+                    var fname=(data[0].pdf).split('./gras_pdf/')
+                    
+                    document.getElementById('pdf_up_view').innerHTML = "<a href='/download?filename="+data[0].pdf+"'id='old_pdf' download>"+fname[1]+"</a>";
+                        }
+                else{
+                    swal({
+                                title: "Gras Update",
+                                text: data,
+                                icon: "error",
+                                })
+                }
+            
+            });
+    });
+    var ch=0;
+    $('#change_pdf').click(function(){
+        if(ch==0){
+            $('#change_pdf_div').show();
+            ch=1; 
+        }
+        else{
+            $('#change_pdf_div').hide(); 
+            ch=0
+        }
+    });
+
+    $('#update_gras').click(function(e){
+        e.preventDefault();
+       
+        $.getJSON("https://jsonip.com?callback=?", function(data1) {
+        var user_ip            = data1.ip;
+        var reg_dt             = new Date();
+        var files = $('#pdf_up').get(0).files;
+            formData = new FormData();
+            if (files.length !== 1 && ch===1) {
+                 alert('Select 1 file to upload.');
+                return false;
+             }
+             else{
+                formData.append('pdf',files[0]);
+             }
+
+        let old_file = $('#old_pdf').text();
+        if(ch===0)
+             {
+               old_file="";
+             }
+
+        let gras_receipt       = $("#gras_receipt_up").val();
+        let gras_receipt_check = $('#gras_receipt_check').val();
+		let month              = $("#month_up").val();
+		let financial_year     = $("#financial_year_up").val();
+		let budget_code         = $("#budget_code_up").val();
+		let district           = $("#district_up").val();
+        let amount             = $("#amount_up").val();
+     //   let scheme             = $("#scheme_up").val();
+        let particular           = $("#up_particular").val();
+        let date                 = $("#up_date").val();
+        let type_of_transaction = $("#up_type_of_transaction").val();
+        var url                = "/update_gras";
+        console.log(old_file);
+        formData.append('old_file',old_file);
+        formData.append('gras_receipt_check',gras_receipt_check);  
+        formData.append('particular',particular);    
+                        formData.append('date',date);
+                        formData.append( 'type_of_transaction',type_of_transaction);    
+                        formData.append('user_ip',user_ip); 
+                        formData.append('reg_dt',reg_dt); 
+                        formData.append('gras_receipt',gras_receipt); 
+                        formData.append('month',month); 
+                        formData.append('financial_year',financial_year); 
+                        formData.append('budget_code',budget_code); 
+                       // formData.append('scheme',scheme); 
+                        formData.append('district',district); 
+                        formData.append('amount',amount); 
+        // $.post(url,{particular:particular,date:date,type_of_transaction:type_of_transaction,gras_receipt_check:gras_receipt_check,user_ip:user_ip,reg_dt:reg_dt,scheme:scheme,gras_receipt:gras_receipt,month:month,financial_year:financial_year,major_head:major_head,district:district,amount:amount}).done(function(data){
+            $.ajax({type:'POST',url:url,processData: false,contentType: false, data:formData }) .done(function(data){   
+            if(data=="Successful"){
+                    swal({
+                                title: "Gras Update",
+                                text: data,
+                                icon: "success",
+                                }).then(function(){
+                                    window.location = '/gras';
+                                });
+                }
+                else{
+                    swal({
+                                title: "Gras Update",
+                                text: data,
+                                icon: "error",
+                                }).then(function(){
+                                    window.location = '/gras';
+                                });
+                }
+            });
+        });
+    });
+    $('#refresh_gras').click(function(){
+   
+        document.getElementById("view_gras").disabled = false;
+        $('#refresh_gras').hide(); 
+        $("#grasTable tr:gt(0)").remove();
+        // dataTable.clear().draw();
+        $("#view_success").hide();
+    });
+    $('#view_gras').click(function(e){
+        e.preventDefault();
+        document.getElementById("view_gras").disabled = true;
+        $('#refresh_gras').show(); 
+        var t=$("#grasTable").DataTable();   
+            t.clear().draw();
+            let month          = $("#month_view").val();
+            let financial_year = $("#financial_year_view").val();
+            let url            = '/view_gras';
+            $.post(url,{financial_year:financial_year,month:month}).done(function(data){
+                if(data!="Data Not Found"){
+                    $('#view_success').show();
+                    var cell;
+                    var table = document.getElementById("grasTable");
+                    var count = Object.keys(data).length;
+                    for(var i=0; i<count;i++){
+                        t.row.add([data[i].gras_receipt_no,
+                                   data[i].particular,
+                                   data[i].date,
+                                   data[i].financial_year,
+                                   data[i].month,
+                                   data[i].type_of_transaction,
+                                   data[i].budget_code,
+                                   data[i].district,
+                                   data[i].amount,
+                                   "<a href='/download?filename="+data[i].pdf+"' download>Download PDF</a>"
+                                   ]).draw(false);
+                        // var row =  table.insertRow(-1);
+                        // cell = row.insertCell(0);
+                        // cell.innerHTML = data[i].gras_receipt_no;
+                        // cell = row.insertCell(1);
+                        // cell.innerHTML = data[i].particular;
+                        // cell = row.insertCell(2);
+                        // cell.innerHTML = data[i].date;
+                        // cell = row.insertCell(3);
+                        // cell.innerHTML = data[i].financial_year;
+                        // cell = row.insertCell(4);
+                        // cell.innerHTML = data[i].month;
+                        // cell = row.insertCell(5);
+                        // cell.innerHTML = data[i].type_of_transaction;
+                        // cell = row.insertCell(6);
+                        // cell.innerHTML = data[i].budget_code;
+                        // // cell = row.insertCell(7);
+                        // // cell.innerHTML = data[i].scheme;
+                        // cell = row.insertCell(7);
+                        // cell.innerHTML = data[i].district;
+                        // cell = row.insertCell(8);
+                        // cell.innerHTML = data[i].amount;
+                        // cell = row.insertCell(9);
+                        // cell.innerHTML = "<a href='/download?filename="+data[i].pdf+"' download>Download PDF</a>";
+                        
+                    
+                    }
+            //    console.log(data);
+                }
+                else{
+                    swal({
+                                title: "Gras Update",
+                                text: data,
+                                icon: "error",
+    
+                        });
+                }
+            });
+    });
+
+});
+
+
+    
+
+</script>

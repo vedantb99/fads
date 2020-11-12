@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/CSS/rejected.css" rel="stylesheet"/>
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"
+  />
+    <%- include ('../partials/links') -%>
+
+    <title>Deleted Entries</title>
+  </head>
+  <body>
+    <%- include ('../partials/header') -%>
+    <div
+      class="container  contentbox"
+    >
+     
+        <h3 class="bolder form-title padding-title">Deleted Records</h3>
+      
+      <div
+        class="btn-group btn-group-lg flex-wrap"
+        role="group"
+        aria-label="Basic example"
+      >
+        <!--<button type="button" id="btn-insert" class="btn btn-info">GRAS</button>-->
+        <button type="button" id="btn-remittance" class="btn btn-info">
+          Remittance
+        </button>
+        <button type="button" id="btn-other_receipts" class="btn btn-info">
+            Other Receipts
+          </button>
+        <button type="button" id="btn-gras" class="btn btn-info">GRAS</button>
+        <button type="button" id="btn-acknowledgement" class="btn btn-info">
+          Expenditure
+        </button>
+      </div>
+        <div id="Remittance">
+          <table id="remittance_table"class="table" cellspacing="0">
+            <thead>
+                <tr>
+                 
+                <th>Date</th>
+                <th>Letter No.</th>
+                <th>Budget Code</th>
+                <th>Particulars</th>
+                <th>Amount</th>   
+                <th>Type of transaction</th>
+                <th>Maker Name</th>
+                <th>1st Checker</th>
+                <th>2nd Checker</th>
+                <th>3rd Checker</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <td>2020-09-24</td>
+                <td>3425252</td>
+                <td>44080077</td>
+                <td>Rice from Pune</td>
+                <td>434225</td>
+                <td>cash</td>
+                <td>Jr.Clerk</td>
+                <td>Superintendent</td>
+                <td>DDO</td>
+                <td>FADS</td>
+                </tr>                
+              </tbody>
+          </table>
+          <br /><br />
+          <button
+            type="button"
+            id="goto_remittance"
+            class="btn btn-success btn-lg"
+            onclick="window.location.href = '/remittance'"
+          >
+            Goto Remittance
+          </button>
+        </div>
+        <div id="other_receipts">
+            <table id="other_receipts_table"class="table" cellspacing="0">
+                <thead>
+                    <tr>
+                     
+                    <th>Date</th>
+                    <th>Instrument No.</th>
+                    <th>Budget Code</th>
+                    <th>Particulars</th>
+                    <th>Amount</th>   
+                    <th>Type of transaction</th>
+                    <th>Maker Name</th>
+                    <th>1st Checker</th>
+                    <th>2nd Checker</th>
+                    <th>3rd Checker</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>2020-09-24</td>
+                    <td>3425252</td>
+                    <td>44080077</td>
+                    <td>Rice from Pune</td>
+                    <td>434225</td>
+                    <td>cash</td>
+                    <td>Jr.Clerk</td>
+                    <td>Superintendent</td>
+                    <td>DDO</td>
+                    <td>FADS</td>
+                    </tr>                
+                  </tbody>
+              </table>
+          <br /><br />
+         
+        </div>
+        <div id="GRAS">
+            <table id="gras_table"class="table " cellspacing="0">
+                <thead>
+                    <tr>
+                     
+                    <th>Date</th>
+                    <th>Receipt No.</th>
+                    <th>Budget Code</th>
+                    <th>Particulars</th>
+                    <th>Amount</th>   
+                    <th>Type of transaction</th>
+                    <th>Maker Name</th>
+                    <th>1st Checker</th>
+                    <th>2nd Checker</th>
+                    <th>3rd Checker</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>2020-09-24</td>
+                    <td>3425252</td>
+                    <td>44080077</td>
+                    <td>Rice from Pune</td>
+                    <td>434225</td>
+                    <td>cash</td>
+                    <td>Jr.Clerk</td>
+                    <td>Superintendent</td>
+                    <td>DDO</td>
+                    <td>FADS</td>
+                    </tr>                
+                  </tbody>
+              </table>
+          <br /><br />
+          <button
+            type="button"
+            id="goto_gras"
+            class="btn btn-success btn-lg"
+            onclick="window.location.href = '/gras'"
+          >
+            Goto GRAS
+          </button>
+        </div>
+        <div id="Acknowledgement">
+            <table id="acknowledgement_table"class="table " cellspacing="0">
+                <thead>
+                    <tr>
+                     
+                    <th>Date</th>
+                    <th>Voucher No.</th>
+                    <th>Budget Code</th>
+                    <th>Particulars</th>
+                    <th>Amount</th>   
+                    <th>Type of transaction</th>
+                    <th>Maker Name</th>
+                    <th>1st Checker</th>
+                    <th>2nd Checker</th>
+                    <th>3rd Checker</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>2020-09-24</td>
+                    <td>3425252</td>
+                    <td>3425252</td>
+                    <td>Rice from Pune</td>
+                    <td>434225</td>
+                    <td>cash</td>
+                    <td>Jr.Clerk</td>
+                    <td>Superintendent</td>
+                    <td>DDO</td>
+                    <td>FADS</td>
+                    </tr>                
+                  </tbody>
+              </table>
+          <br /><br />
+          <button
+            type="button"
+            id="goto_acknowledgement"
+            class="btn btn-success btn-lg"
+            onclick="window.location.href = '/acknowledge'"
+          >
+            Goto Acknowledgements
+          </button>
+        </div>
+    </div>
+  </body>
+  <%- include ('../partials/footer') -%>
+</html>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#Remittance").hide();
+    $("#GRAS").hide();
+    $("#Acknowledgement").hide();
+    $("#other_receipts").hide();
+
+    $("#btn-remittance").click(function (e) {
+      $("#Remittance").show();
+      $("#GRAS").hide();
+      $("#Acknowledgement").hide();
+      $("#other_receipts").hide();
+      e.preventDefault();
+      $("#myTable1").empty();
+      $("#myTable2").empty();
+
+      var t=$("#remittance_table").DataTable();  
+      t.clear().draw();
+      var url="/fetch_deleted_records";
+      var tablename="deleted_remittance";
+      $.post(url,{tablename:tablename}).done(function(data){
+                if(data){
+                 // console.log(data);
+                  for (var i = 0; i < data.length; i++) {
+
+                  t.row.add([data[i].date,
+                             data[i].letter_no,
+                             data[i].budget_code,
+                             data[i].particular,
+                             data[i].amount,
+                             data[i].payment_method,
+                             data[i].insert_by,
+                            "SuperIntendent",
+                            "DDO",
+                            "FADS"                            
+                            ]).draw(false);       
+                         }
+                                 }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+
+
+
+    });
+    $("#btn-gras").click(function (e) {
+      e.preventDefault();
+      $("#Remittance").hide();
+      $("#GRAS").show();
+      $("#Acknowledgement").hide();
+      $("#other_receipts").hide();
+      $("#myTable").empty();
+      $("#myTable1").empty();
+      $("#myTable2").empty();
+      var t=$("#gras_table").DataTable(); 
+      t.clear().draw();
+      var url="/fetch_deleted_records";
+      var tablename="deleted_gras";
+      $.post(url,{tablename:tablename}).done(function(data){
+                if(data){
+                 // console.log(data);
+                  for (var i = 0; i < data.length; i++) {
+
+                  t.row.add([data[i].date,
+                             data[i].gras_receipt_no,
+                             data[i].budget_code,
+                             data[i].particular,
+                             data[i].amount,
+                             data[i].type_of_transaction,
+                             data[i].insert_by,
+                            "SuperIntendent",
+                            "DDO",
+                            "FADS"                            
+                            ]).draw(false);       
+                         }
+                                 }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+
+     
+    });
+    $("#btn-other_receipts").click(function (e) {
+      
+      e.preventDefault();
+      $("#Remittance").hide();
+      $("#other_receipts").show();
+      $("#GRAS").hide();
+      $("#Acknowledgement").hide();
+      $("#myTable").empty();
+      $("#myTable1").empty();
+      $("#myTable2").empty();
+      var t=$("#other_receipts_table").DataTable(); 
+      t.clear().draw();
+      var url="/fetch_deleted_records";
+      var tablename="deleted_other_receipts";
+      $.post(url,{tablename:tablename}).done(function(data){
+                if(data){
+                //  console.log(data);
+                  for (var i = 0; i < data.length; i++) {
+
+                  t.row.add([data[i].date,
+                             data[i].instrument,
+                             data[i].budget_code,
+                             data[i].particular,
+                             data[i].amount,
+                             data[i].payment_details,
+                             data[i].insert_by,
+                            "SuperIntendent",
+                            "DDO",
+                            "FADS"                            
+                            ]).draw(false);       
+                         }
+                                 }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+     
+    });
+
+    $("#btn-acknowledgement").click(function (e) {
+      $("#Acknowledgement").show();
+      $("#Remittance").hide();
+      $("#GRAS").hide();
+      $("#other_receipts").hide();
+      e.preventDefault();
+      $("#myTable").empty();
+      $("#myTable1").empty();
+      $("#myTable2").empty();
+      var t=$("#acknowledgement_table").DataTable(); 
+      t.clear().draw();
+      var url="/fetch_deleted_records";
+      var tablename="deleted_acknowledgement";
+      $.post(url,{tablename:tablename}).done(function(data){
+                if(data){
+                 // console.log(data);
+                  for (var i = 0; i < data.length; i++) {
+
+                  t.row.add([data[i].date,
+                             data[i].voucher_no,
+                             data[i].budget_code,
+                             data[i].particular,
+                             data[i].amount,
+                             data[i].payment_details,
+                             data[i].insert_by,
+                            "SuperIntendent",
+                            "DDO",
+                            "FADS"                            
+                            ]).draw(false);       
+                         }
+                                 }
+                else{
+                  swal({
+                                title: data,
+                                text: "",
+                                icon: "error",
+                                });
+                }
+              });
+
+      
+    });
+
+  });
+</script>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('../partials/links') -%>
+
+    <title>Home</title>
+  </head>
+  <link href="/CSS/home.css" rel="stylesheet" />
+
+  <body>
+    <%- include ('../partials/header') -%>
+    <div class="container">
+      <!-- Login Details-->
+      <header class="jumbotron">
+        <h1 class="display-3 text-center">Welcome, <%= session %></h1>
+        <h2 class="text-center"><%= user_type%></h2>
+        <h3>Activity Report</h3>
+        <p class="bold">
+          Your Last Login: <span class="date-text"><%= last_login%></span>
+        </p>
+        <p class="bold">
+          Your Last Logout: <span class="date-text"><%= last_logout%></span>
+        </p>
+      </header>
+      <% if(user_type!="Admin") {if(user_type=="ABC"){%>
+       
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>New Entries<br /></h2>
+        </div>
+      </div>
+      <h3></h3>
+
+      <div class="row text-center justify-content-center">
+        <div class="card-deck">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title white-font">Remittance</h4>
+            </div>
+            <div class="card-body">
+              <p>
+                <span class="card-text"
+                  >New Remittance Rows: <%= rem%></span
+                >
+              </p>
+              <br />
+            </div>
+            <div class="card-footer">
+              <a href="/approval">
+                <button type="button" class="btn btn-success btn-sm">
+                  Go to Approval
+                </button>
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title white-font">GRAS</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">New GRAS Rows: <%= gras%></p>
+              <br />
+            </div>
+            <div class="card-footer">
+              <a href="/approval">
+                <button type="button" class="btn btn-success btn-sm">
+                  Go to Approval
+                </button>
+              </a>
+            </div>
+          </div>
+            <% } if(user_type=="Jr.Accountant") {%>
+            
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <h2>Rejected Entries<br /></h2>
+                </div>
+              </div>
+              <h3></h3>
+        
+              <div class="row text-center justify-content-center">
+                <div class="card-deck">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title white-font">Remittance</h4>
+                    </div>
+                    <div class="card-body">
+                      <p>
+                        <span class="card-text"
+                          >Rejected Remittance Rows: <%= rem%></span
+                        >
+                      </p>
+                      <br />
+                    </div>
+                    <div class="card-footer">
+                      <a href="/rejected">
+                        <button type="button" class="btn btn-success btn-sm">
+                          Go to Rejected
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title white-font">GRAS</h4>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">Rejected GRAS Rows: <%= gras%></p>
+                      <br />
+                    </div>
+                    <div class="card-footer">
+                      <a href="/rejected">
+                        <button type="button" class="btn btn-success btn-sm">
+                          Go to Rejected
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+                    <% }  if(user_type =="DDO") {%>
+         
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title white-font">Expenditure</h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">New Expenditure Rows: <%= ack%></p>
+            </div>
+            <div class="card-footer">
+              <a href="/approval">
+                <button type="button" class="btn btn-success btn-sm">
+                  Go to Acknowledgement
+                </button>
+              </a>
+            </div>
+          </div>
+          <% }%>
+        </div>
+      </div>
+      <% }if(user_type=="Admin" && op_check<2) {%>
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title white-font">Opening Balance</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Insert/Update Opening Balance</p>
+          </div>
+          <div class="card-footer">
+            <a href="/op_balance">
+              <button type="button" class="btn btn-success btn-sm">
+                Go to Opening Balance
+              </button>
+            </a>
+          </div>
+        </div>
+        <% }%>
+      <!-- Page Features -->
+
+      <!-- <div class="row">
+      <div class="col-7">
+       
+      </div>
+      <div class="col-5">
+        <div class="card" id="remittance-card" >
+          <div class="card-text">
+            <h4>Remittance</h4><br>
+            <p><span class="count">Rejected Remittance Rows: <%= rem%></span></p><br>
+                    <h3> Click here to Go to Remittance</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-7">
+        <div class="card">
+          <div class="card-text">
+          <h4>Welcome, <%= session %></h4>
+          <h4><%= user_type%></h4>
+          <p>Your Last Login: <span class="date-text"><%= last_login%></span></p>
+          <p>Your Last Logout: <span class="date-text"><%= last_logout%></span></p>
+
+        </div>
+      </div>
+      </div>   
+      
+      
+      <div class="col-5">
+        <div class="card" >
+          <div class="card-body info">
+            <h4 class="card-title">GRAS</h4>
+            <p class="card-text">Rejected Gras Rows: <%= gras%></p><br>
+            <a href="/gras" class="btn btn-so">Go to GRAS</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-7">
+        
+      </div>
+      <div class="col-5">
+        <div class="card" >
+          <div class="card-text">
+          <h4 class="card-title"><span class="bolder">Acknowledgements</span></h4>
+          <p class="card-text">Rejected Acknowledgement Rows: <%= ack%></p>
+        </div>
+      </div>  
+        </div>
+    </div> -->
+    </div>
+  </body>
+</html>
+<%- include ('../partials/footer') -%>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#submit2").click(function (e) {
+      // alert(result);
+      e.preventDefault();
+      let page = $("#select_page").val();
+      window.location = "/" + page;
+    });
+    $("#remittance-card").click(function (e) {
+      e.preventDefaullt();
+      let page = $("#").val();
+    });
+  });
+</script>

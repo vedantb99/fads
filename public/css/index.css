@@ -1,0 +1,294 @@
+html,
+body {
+  background-color:#F2F8F9;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+.form-title{
+  color: black;
+  /* text-align:center; */
+}
+.padding-title{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+
+* {
+  box-sizing: border-box;
+  font-family: roboto;
+}
+
+.img-fluid {
+  margin: 0%;
+}
+#table_val_month {
+  text-align: center;
+}
+#myTable {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+#myTable th,
+#myTable td {
+  border: 1px solid black;
+  padding: 15px;
+}
+
+/* Gras Table */
+#myGrasTable {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+#myGrasTable th,
+#myGrasTable td {
+  border: 1px solid black;
+  padding: 15px;
+}
+/* Ack table end */
+
+/* Ack Table */
+#myAckTable {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+#myAckTable th,
+#myAckTable td {
+  border: 1px solid black;
+  padding: 15px;
+}
+/* Ack table end */
+@media only screen and (max-width: 720px) {
+  .small {
+    font-size: 13px;
+  }
+  #myTable {
+    width: 98%;
+    margin: 0 auto;
+  }
+  #myTable th,
+  #myTable td {
+    padding: 10px;
+  }
+  footer {
+    padding: 10px !important;
+  }
+  .footerMenu {
+    margin: 5px 10px !important;
+  }
+  .footerMenu ul {
+    padding: 0px;
+  }
+}
+
+.margin-right {
+  margin-right: 10%;
+}
+
+.margin-left {
+  margin-left: 10%;
+}
+.margin-left-two {
+  margin-left: 2%;
+}
+.container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin:0 px auto;
+}
+
+.row {
+  margin-top: 20px;
+}
+.button-top {
+  margin-top: 2%;
+}
+.verticle-middle {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.padding-title{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+
+p {
+  font-weight: 300;
+  line-height: 1.7em;
+  text-align: justify;
+}
+
+table {
+  text-align: center;
+}
+
+h1 {
+  font-size: 4em;
+}
+
+.bolder {
+  font-weight: 900;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.lighter {
+  font-weight: 100;
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  .img-fluid {
+    margin: 0%;
+    width: 40px;
+  }
+  nav {
+    padding: 5px !important;
+    background:#0E4D92;
+  }
+  nav a {
+    margin: 0 5px !important;
+  }
+  nav a span {
+    font-size: 0.8em;
+  }
+  nav button {
+    padding: 5px 8px !important;
+  }
+  #myTable {
+    width: 98%;
+    font-size: 0.75em;
+    margin: 0 auto;
+  }
+  #myTable th,
+  #myTable td {
+    padding: 5px 3px;
+  }
+ 
+  footer ul li a {
+    padding: 5px !important;
+  }
+}
+@media (max-width: 820px) {
+  #footer {
+    justify-content: flex-start;
+  }
+}
+
+/* Nav goes here */
+nav {
+  font-size: 1.1em !important;
+}
+
+nav .brand-logo {
+  font-size: 1.3em;
+}
+
+/* FAQs goes here */
+.faq {
+  padding: 30px 15px;
+  font-size: 1.5em;
+  background: #f0f0f0;
+  text-align: justify;
+}
+
+.faq-answer {
+  padding: 30px;
+  font-size: 0.8em;
+  display: none;
+}
+
+/* Conctact goes here */
+.contact {
+  text-align: center;
+  font-size: 1.2em;
+  line-height: 2em;
+  padding-bottom: 50px;
+}
+
+/* Footer goes here */
+.footer {
+  background: #343a40;
+  color: #ffffff;
+  padding: 30px;
+}
+
+footer a {
+  color: #aaa;
+  padding-right: 30px;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+#footer {
+  justify-content: space-around;
+}
+
+.card {
+  background-color: white;
+  color: #343a40;
+}
+.copyRightsText {
+  font-size: 0.85em;
+  margin: 0 auto 25px;
+  max-width: 500px;
+  text-align: center;
+  line-height: 150%;
+}
+
+.footerMenu {
+  font-family: roboto;
+  margin-left: 10ex;
+  margin-right: 10em;
+  text-align: center;
+}
+.footerMenu li {
+  list-style-type: none;
+}
+
+.footerMenu ul li {
+  display: inline-block;
+}
+.extraSpace {
+  margin-left: 10em;
+}
+.contentbox {
+  /* margin-top: 5%;
+  margin-bottom: 5%; */
+  margin:0px auto;
+}
+.btn {
+  width: 250px;
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  padding: 1px 2px; /* Add some padding */
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+.gras-margin {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.datatables-button-group{
+  width:220px;
+}
